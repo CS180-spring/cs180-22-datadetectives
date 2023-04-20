@@ -5,27 +5,26 @@
 //#include <nlohmann/json.hpp>
 #include "../lib/json.hpp"
 
-using namespace std;
 using json = nlohmann::json;
 
 class JsonReader {
  public:
-  string ReadFile(string file_path);
+  std::string ReadFile(std::string file_path);
 };
 
-string JsonReader::ReadFile(string file_path) {
+std::string JsonReader::ReadFile(std::string file_path) {
 
   // Open provided JSON file
-  ifstream f(file_path);
+  std::ifstream f(file_path);
   json data = json::parse(f);
 
   // String to be returned
-  string return_val = "";
+  std::string return_val = "";
 
-  // Loop through keys
+  // Loop through values
   for (auto& element : data) {
-    cout << element << endl;
     return_val += element;
+    return_val += " ";
   }
 
   return return_val;
