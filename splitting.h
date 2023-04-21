@@ -12,9 +12,11 @@ using json = nlohmann::json;
 class splittingJSON{
 public:
     splittingJSON(string filename);
+    void splittingJSONMapSize(int amount);
     void printData();
+    void printDataMap();
 private:
-    
+    vector<vector<json>> mapperSized;
     vector<json> data;
 };
 
@@ -37,6 +39,31 @@ void splittingJSON::printData() {
     }
 }
 
+void splittingJSON::splittingJSONMapSize(int amount){
+    int size = data.size()/amount;
+    vector<json> temp;
+    int counter = 0;
+
+    for(int i = 0; i < data.size(); i++){
+        temp.push_back(data[i]);
+        counter++;
+        if(counter == size){
+            counter = 0;
+            mapperSized.push_back(temp);
+            temp.clear();
+        }
+    }
+    if(!temp.empty()){
+        mapperSized.push_back(temp);
+    }
+}
+
+void splittingJSON::printDataMap(){
+    for (auto& tokens : mapperSized) {
+        for(auto& token : tokens)
+            std::cout << token.dump() << std::endl;
+    }
+}
 
 
 #endif
