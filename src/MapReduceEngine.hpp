@@ -1,5 +1,7 @@
 // MapReduceEngine.hpp
-#pragma once
+
+#ifndef MAPREDUCE_SRC_MAPREDUCEENGINE_H_
+#define MAPREDUCE_SRC_MAPREDUCEENGINE_H_
 
 #include "IMapReduce.hpp"
 #include <iostream>
@@ -30,3 +32,5 @@ class MapReduceEngine {
  private:
   IMapReduce& map_reduce_;
 };
+
+#endif
