@@ -1,4 +1,4 @@
-// WordCountMapReduce.hpp
+// WordCountMapReduce.cpp
 
 #include <vector>
 #include "../src/IMapReduce.hpp"
