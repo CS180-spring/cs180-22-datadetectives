@@ -1,8 +1,8 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 17)
 
-ADD_SUBDIRECTORY(googletest)
+project(CppMapReduce)
 
 ADD_EXECUTABLE(loader
 	main.cpp
@@ -10,9 +10,11 @@ ADD_EXECUTABLE(loader
     OpenFile.hpp
 )
 
-ADD_EXECUTABLE(test
-	test.cpp
+ADD_EXECUTABLE(wordcount
+	test/WordCountMapReduce.cpp
+	src/IMapReduce.hpp
+	src/JsonReader.hpp
+	src/MapReduceEngine.hpp
 )
 
-TARGET_LINK_LIBRARIES(test gtest)
-TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
+set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
