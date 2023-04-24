@@ -1,4 +1,8 @@
-// JsonReader.cpp
+// JsonReader.hpp
+
+#ifndef MAPREDUCE_SRC_JSONREADER_H_
+#define MAPREDUCE_SRC_JSONREADER_H_
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -29,3 +33,5 @@ std::vector<std::string> JsonReader::ReadFile(std::string file_path) {
 
   return return_val;
 }
+
+#endif
