@@ -2,7 +2,7 @@
 #define OPENFILE_TEST_HPP
 
 #include "gtest/gtest.h"
-#include "OpenFile.hpp"
+#include "../src/OpenFile.hpp"
 
 TEST(OpenFile, RegularFile){
     EXPECT_NO_THROW(openFile("csvTestFiles/normal.csv"));

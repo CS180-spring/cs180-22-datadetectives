@@ -2,7 +2,7 @@
 #define LOADCSV_TEST_HPP
 
 #include "gtest/gtest.h"
-#include "CSVLoader.hpp"
+#include "../src/CSVLoader.hpp"
 
 TEST(CSVLoad, RegularFile){
 
