@@ -11,7 +11,7 @@ class IMapReduce {
 public:
 
   // Virtual mapper method
-  virtual std::vector<std::pair<std::string, int>> Map(const std::string& filename) = 0;
+  virtual std::pair<std::string, int> Map(const std::string& record) = 0;
 };
 
 #endif

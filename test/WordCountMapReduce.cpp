@@ -1,35 +1,30 @@
 // WordCountMapReduce.cpp
 
 #include <vector>
+#include <utility>  // For std::make_pair()
 #include "../src/IMapReduce.hpp"
 #include "../src/JsonReader.hpp"
 #include "../src/MapReduceEngine.hpp"
+#include "../src/JsonReader.hpp"
 
 // Concrete implementation of the IMapReduce interface
 class WordCountMapReduce : public IMapReduce {
  public:
 
   // Concrete Map implementation
-  std::vector<std::pair<std::string, int>> Map(const std::string& filename) override {
+  std::pair<std::string, int> Map(const std::string& record) override {
 
-    // To store the results of the Map operation
-    std::vector<std::pair<std::string, int>> result;
-
-    // Read data from the provided JSON file
-    JsonReader my_json_reader = JsonReader();
-    std::vector<std::string> data = my_json_reader.ReadFile(filename);
-
-    for (auto& record : data) {
-      result.emplace_back(record, 1);
-    }
-
-    return result;
+    return std::make_pair(record, 1);
   }
 };
 
 // Main function
 int main() {
-  std::vector<std::string> input_files = {"/Users/vinayakgajjewar/Documents/Schoolwork/CS180/cs180-22-datadetectives/data/test.json"};
+
+  // Read data from JSON
+  std::string input_file = "/Users/vinayakgajjewar/Documents/Schoolwork/CS180/cs180-22-datadetectives/data/test.json";
+  JsonReader wc_json_reader = JsonReader();
+  std::vector<std::string> data = wc_json_reader.ReadFile(input_file);
 
   // Create MapReduce implementation
   WordCountMapReduce word_count_map_reduce;
@@ -38,7 +33,7 @@ int main() {
   MapReduceEngine engine(word_count_map_reduce);
 
   // Run engine
-  engine.Run(input_files);
+  engine.Run(data);
 
   return 0;
 }
