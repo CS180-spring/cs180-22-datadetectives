@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 // https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json.hpp
 //#include <nlohmann/json.hpp>
 #include "../lib/json.hpp"
@@ -28,7 +29,16 @@ std::vector<std::string> JsonReader::ReadFile(std::string file_path) {
 
   // Loop through values
   for (auto& element : data) {
-    return_val.push_back(element);
+
+    std::stringstream ss;
+    ss.str(element);
+    std::string word;
+
+    while (ss >> word) {
+      word.erase(std::remove_if(word.begin(), word.end(), [](char c) { return !std::isalpha(c); }), word.end());
+      std::transform(word.begin(), word.end(), word.begin(), [](char c) { return std::tolower(c); });
+      return_val.push_back(word);
+    }
   }
 
   return return_val;
