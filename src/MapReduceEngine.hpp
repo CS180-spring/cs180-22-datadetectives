@@ -15,7 +15,7 @@ class MapReduceEngine {
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
   // Run function
-  void Run(const std::vector<std::string>& input_data) {
+  std::vector<std::pair<std::string, int>> Run(const std::vector<std::string>& input_data) {
 
     // Map phase
     std::vector<std::pair<std::string, int>> map_outputs;
@@ -24,9 +24,11 @@ class MapReduceEngine {
     }
 
     // Print map results
-    for (const auto& record : map_outputs) {
-      std::cout << record.first << ": " << record.second << std::endl;
-    }
+    //for (const auto& record : map_outputs) {
+    //  std::cout << record.first << ": " << record.second << std::endl;
+    //}
+
+    return map_outputs;
   }
 
  private:
