@@ -5,7 +5,7 @@ SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(test
-	test/test.cpp
+	tests/test.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
