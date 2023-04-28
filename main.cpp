@@ -1,5 +1,8 @@
-#include "../src/CSVLoader.hpp"
-#include "../src/OpenFile.hpp"
+#include "src/CSVLoader.hpp"
+#include "src/OpenFile.hpp"
+#include "src/Job.hpp"
+#include "src/JsonReader.hpp"
+#include "src/ReadBytes.h"
 
 #include <iostream>
 #include <vector>
@@ -10,12 +13,14 @@ using namespace std;
 
 
 int main(){
-    ifstream input = openFile("extraLines.csv");
-    vector<string> contents = loadCSV(input);
+    string file = "normal.csv";
+    Job j;
 
-    for(int i = 0; i < contents.size(); i++){
-        cout << "Line: " << i << " " << contents[i] << endl;
-    }
+    j.addInputPath(file);
+    j.setMappers(4);
+    j.setReducers(2);
+    j.setOutputPath("jobOutput.txt");
+
 
     return 0;
 }

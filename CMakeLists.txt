@@ -4,14 +4,14 @@ SET(CMAKE_CXX_STANDARD 11)
 
 ADD_SUBDIRECTORY(googletest)
 
-ADD_EXECUTABLE(loader
+ADD_EXECUTABLE(run
 	main.cpp
-	CSVLoader.hpp
-    OpenFile.hpp
+	src/CSVLoader.hpp
+    src/OpenFile.hpp
 )
 
 ADD_EXECUTABLE(test
-	test.cpp
+	testFiles/testProg.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
