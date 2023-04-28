@@ -1,17 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET(CMAKE_CXX_STANDARD 11)
-
+SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 ADD_SUBDIRECTORY(googletest)
 
-ADD_EXECUTABLE(loader
-	main.cpp
-	CSVLoader.hpp
-    OpenFile.hpp
-)
-
 ADD_EXECUTABLE(test
-	test.cpp
+	test/test.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
