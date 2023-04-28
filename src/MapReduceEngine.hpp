@@ -24,9 +24,9 @@ class MapReduceEngine {
     }
 
     // Print map results
-    //for (const auto& record : map_outputs) {
-    //  std::cout << record.first << ": " << record.second << std::endl;
-    //}
+    for (const auto& record : map_outputs) {
+      std::cout << record.first << ": " << record.second << std::endl;
+    }
 
     return map_outputs;
   }
