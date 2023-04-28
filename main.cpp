@@ -13,14 +13,53 @@ using namespace std;
 
 
 int main(){
-    string file = "normal.csv";
-    Job j;
+    //create Job to run with default values(M:2,R:1,F:0,O:"output.txt")
+    Job mr;
+    cout << "JOB CREATED\n";
 
-    j.addInputPath(file);
-    j.setMappers(4);
-    j.setReducers(2);
-    j.setOutputPath("jobOutput.txt");
+    //display job info
+    cout << "Mappers: " << mr.getMappers() << endl;
+    cout << "Reducers: " << mr.getReducers() << endl;
+    cout << "Default Output Path: " << mr. getOutputName() << endl << endl;
 
+    //add inputfile to job (CSV & Json)
+    mr.addInputPath("csvTestFiles/normal.csv");
+    mr.addInputPath("data/test.json");
+    cout << "Files Added\n";
+
+    //update output path:
+    mr.setOutputPath("mapReduce.txt");
+    cout << "Output Path Updated\n\n";
+
+    //ouput path info:
+    vector <string> p = mr.getPaths();
+    cout << "Total Input Paths: " << mr.getFileCount() << endl;
+    for(int i = 0; i < p.size(); i++){
+        cout << "Input Path " << i + 1 << ": " << p[i] << endl;
+    }
+    cout << "Output Path: " << mr.getOutputName() << endl << endl;
+
+    //openFiles
+    ifstream csv = openFile(p[0]);
+    ifstream json = openFile(p[1]);
+    cout << "Input Files are open\n";
+
+    //readfiles into job
+    JsonReader my_json_reader = JsonReader();
+    vector<string> csvContents = loadCSV(csv);
+    vector<string> jsonContents = my_json_reader.ReadFile(p[1]);
+    cout << "Files have been read\n\n";
+
+    //output contents for both files
+    cout << "File contents for " << p[0] << ":\n";
+    for(int i = 0; i < csvContents.size(); i++){
+        cout << "Line " << i + 1 << ": " << csvContents[i]<< endl;
+    }
+    
+    cout << "\nFile contents for " << p[1] << ":\n";
+    for(int i = 0; i < jsonContents.size(); i++){
+        cout << "Line " << i + 1 << ": " << jsonContents[i]<< endl;
+    }
 
     return 0;
 }

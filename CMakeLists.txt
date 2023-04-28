@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 17)
 
 ADD_SUBDIRECTORY(googletest)
 
@@ -8,6 +8,7 @@ ADD_EXECUTABLE(run
 	main.cpp
 	src/CSVLoader.hpp
     src/OpenFile.hpp
+	src/Job.hpp
 )
 
 ADD_EXECUTABLE(test
