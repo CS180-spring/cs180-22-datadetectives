@@ -23,9 +23,28 @@ class MapReduceEngine {
       map_outputs.push_back(map_reduce_.Map(record));
     }
 
-    // Print map results
+    // Print map results.
+    std::cout << "MAP OUTPUTS" << std::endl;
+    std::cout << "--------" << std::endl;
     for (const auto& record : map_outputs) {
       std::cout << record.first << ": " << record.second << std::endl;
+    }
+
+    // Perform shuffle phase.
+    // Here, we group intermediate key-value pairs by key.
+    std::map<std::string, std::vector<int>> shuffled_outputs;
+    for (const auto& pair : map_outputs) {
+      shuffled_outputs[pair.first].push_back(pair.second);
+    }
+
+    // Print shuffle phase outputs.
+    std::cout << "SHUFFLE OUTPUTS" << std::endl;
+    std::cout << "--------" << std::endl;
+    for (const auto& [key, value] : shuffled_outputs) {
+      std::cout << key << std::endl;
+      for (const auto& elem : value) {
+        std::cout << "\t" << elem << std::endl;
+      }
     }
 
     return map_outputs;
