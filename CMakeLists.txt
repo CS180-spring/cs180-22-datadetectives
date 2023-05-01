@@ -1,24 +1,19 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 17)
 SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 ADD_SUBDIRECTORY(googletest)
 
-ADD_EXECUTABLE(tests
-	test/test.cpp
+ADD_EXECUTABLE(run
+	main.cpp
+	src/CSVLoader.hpp
+    src/OpenFile.hpp
+	src/Job.hpp
 )
 
-TARGET_LINK_LIBRARIES(tests gtest)
-
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-
-SET(CMAKE_CXX_STANDARD 11)
-SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-ADD_SUBDIRECTORY(googletest)
-
-ADD_EXECUTABLE(tests
-	test/test.cpp
-)
+ADD_EXECUTABLE(test
+	testFiles/testProg.cpp
 
 TARGET_LINK_LIBRARIES(tests gtest)
 TARGET_COMPILE_DEFINITIONS(tests PRIVATE gtest_disable_pthreads=ON)

@@ -3,22 +3,17 @@
 
 #include <vector>
 #include <string>
-//#include <thread>
 #include <iostream>
 using namespace std;
 
 class csvSplitter{
     public:
+        csvSplitter(int threads) : threadCount(threads){};
         vector<vector<string>> splitCsv(vector<string> csvFile);
     private:
         //temporary # of threads to split into
-        int threadCount();
+        int threadCount;
 };
-
-int threadCount(){
-    //temp
-    return 8;
-}
 
 vector<vector<string>> csvSplitter::splitCsv(vector<string> csvFile){
     vector<vector<string>> vect;
@@ -30,7 +25,7 @@ vector<vector<string>> csvSplitter::splitCsv(vector<string> csvFile){
     } 
     
     //creates "equal" sized subvectors depending on # of threads in use
-    int intervals = threadCount();
+    int intervals = threadCount;
     for(int i = 0; i < csvFile.size(); i += int(csvFile.size()/intervals)){
         //last thread would handle lines(modulos threadCount) extra 
         if (vect.size() >= intervals-1) {
