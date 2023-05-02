@@ -39,7 +39,7 @@ jobs:
       - name: Google Testing
         run: |
              git submodule update --init --recursive
+             readlink -f normal.csv
              cmake .
              make
-             readlink -f normal.csv
              ./test
