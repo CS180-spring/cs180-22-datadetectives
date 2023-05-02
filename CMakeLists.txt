@@ -5,6 +5,8 @@ SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY(googletest)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/normal.csv ${CMAKE_CURRENT_BINARY_DIR}/mydata.csv COPYONLY)
+
 #ADD_EXECUTABLE(run
 #	main.cpp
 #	src/CSVLoader.hpp
