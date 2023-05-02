@@ -5,7 +5,7 @@
 #include "../src/OpenFile.hpp"
 
 TEST(OpenFile, RegularFile){
-    EXPECT_NO_THROW(openFile("../data/normal.csv"));
+    EXPECT_NO_THROW(openFile("normal.csv"));
 }
 
 TEST(OpenFile, EmptyFile){
