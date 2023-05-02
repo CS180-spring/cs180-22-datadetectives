@@ -5,12 +5,12 @@ SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY(googletest)
 
-ADD_EXECUTABLE(run
+#[[ADD_EXECUTABLE(run
 	main.cpp
 	src/CSVLoader.hpp
     src/OpenFile.hpp
 	src/Job.hpp
-)
+)]]
 
 ADD_EXECUTABLE(test
 	testFiles/testProg.cpp

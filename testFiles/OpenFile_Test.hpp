@@ -5,14 +5,14 @@
 #include "../src/OpenFile.hpp"
 
 TEST(OpenFile, RegularFile){
-    EXPECT_NO_THROW(openFile("csvTestFiles/normal.csv"));
+    EXPECT_NO_THROW(openFile("../../../data/normal.csv"));
 }
 
 TEST(OpenFile, EmptyFile){
-    EXPECT_ANY_THROW(openFile("csvTestFiles/blank.csv"));
+    EXPECT_ANY_THROW(openFile("../../../data/blank.csv"));
 }
 
 TEST(OpenFile, DoesNotExist){
-    EXPECT_ANY_THROW(openFile("csvTestFiles/noFile.csv"));
+    EXPECT_ANY_THROW(openFile("../../../data/noFile.csv"));
 }
 #endif
