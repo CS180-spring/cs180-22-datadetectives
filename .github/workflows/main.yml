@@ -37,9 +37,9 @@ jobs:
         
       # Runs googletests
       - name: Google Testing
+        working-directory: ./cs180-22-datadetectives
         run: |
              git submodule update --init --recursive
-             readlink -f normal.csv
              cmake .
              make
              ./test
