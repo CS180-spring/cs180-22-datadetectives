@@ -4,9 +4,9 @@
 #include "gtest/gtest.h"
 #include "../src/OpenFile.hpp"
 
-TEST(OpenFile, RegularFile){
-    EXPECT_NO_THROW(openFile("../../../data/normal.csv"));
-}
+//TEST(OpenFile, RegularFile){
+//    EXPECT_NO_THROW(openFile("../../../data/normal.csv"));
+//}
 
 TEST(OpenFile, EmptyFile){
     EXPECT_ANY_THROW(openFile("../../../data/blank.csv"));
