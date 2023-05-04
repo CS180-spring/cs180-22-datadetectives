@@ -10,10 +10,12 @@ ADD_EXECUTABLE(run
 	src/CSVLoader.hpp
     src/OpenFile.hpp
 	src/Job.hpp
+	src/OutputJob.hpp
 )
 
 ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
+)
 
-TARGET_LINK_LIBRARIES(tests gtest)
-TARGET_COMPILE_DEFINITIONS(tests PRIVATE gtest_disable_pthreads=ON)
+TARGET_LINK_LIBRARIES(test gtest)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
