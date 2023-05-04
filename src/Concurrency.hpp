@@ -7,11 +7,18 @@
 
 #include <thread>
 #include <vector>
+#include <map>
 #include <iostream>
 
 struct outputs : std::vector<std::vector<std::pair<std::string, int>>> {
     outputs() : std::vector<std::vector<std::pair<std::string, int>>>() {}
     void new_member (std::vector<std::pair<std::string, int>> n) { push_back(n); }
+};
+
+struct reducerOutputs : std::map<std::string, int> {
+    reducerOutputs() : std::map<std::string, int>() {}
+    //combines reduce returns
+    void new_member (std::map<std::string, int> n) { merge(n); }
 };
 
 class Concurrency{
@@ -21,8 +28,7 @@ class Concurrency{
     public:
         Concurrency(){mapThreadCount = 2; redThreadCount = 1;};
         Concurrency(Job config);
-        int getmappers(){return mapThreadCount;};
-        void runMapReduce(IMapReduce userMapReduce, std::vector<std::vector<std::string>> splitData);
+        std::map<std::string, int> runMapReduce(IMapReduce userMapReduce, <std::vector<std::string> inputFiles);
 };
 
 Concurrency::Concurrency(Job config){
@@ -30,9 +36,14 @@ Concurrency::Concurrency(Job config){
     redThreadCount = config.getReducers();
 }
 
-void Concurrency::runMapReduce(IMapReduce userMapReduce, std::vector<std::vector<std::string>> splitData){;
+std::map<std::string, int> Concurrency::runMapReduce(IMapReduce userMapReduce, std::vector<std::string> inputFiles){;
     MapReduceEngine map_reducer_engine(userMapReduce);
+    csvSplitter splitter(mapThreadCount, redThreadCount);
     outputs mapper_outputs;
+    reducerOutputs reducer_outputs;
+
+    //Split inputData for mappers
+    std::vector<std::vector<std::string>> splitData = splitter.splitCsv(inputFiles);
 
     //Create mapper threads by loop
     //run mappers concurrently
@@ -41,24 +52,25 @@ void Concurrency::runMapReduce(IMapReduce userMapReduce, std::vector<std::vector
         mappers.push_back(std::thread(&outputs::new_member, std::ref(mapper_outputs), map_reducer_engine.Run(splitData[i])));
     }
 
-    //close threads?
+    //close threads
     for (auto& th : mappers) th.join();
 
     //shuffle completed maps
+    //and split up for reducers
+    std::vector<std::map<std::string, std::vector<int>>> splitMaps = splitter.splitMap(map_reducer_engine.shuffle(mapper_outputs));
 
     //create reducer threads by loop
     //run reducers concurrently
     std::vector<std::thread> reducers;
-    /*
     for(int i = 0; i < redThreadCount; ++i){
-        reducers.push_back(std::thread());
-    */
+        reducers.push_back(std::thread(&reducerOutputs::new_member, std::ref(reducer_outputs), map_reducer_engine.reduce(splitMaps[i])));
+    }
 
     //close threads
     for (auto& th : reducers) th.join();
 
-    //combine into final return of some sort?
-
+    //return combined resulting map
+    return reducer_outputs;
 }
 
 #endif //CONCURRENCY_HPP
