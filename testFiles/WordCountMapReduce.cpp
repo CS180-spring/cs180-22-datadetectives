@@ -32,8 +32,11 @@ int main() {
   // Create MapReduce engine
   MapReduceEngine engine(word_count_map_reduce);
 
-  // Run engine
-  engine.Run(data);
+  // Run Map stage
+  std::vector<std::pair<std::string, int>> map_outputs = engine.Map(data);
+
+  // Run Shuffle stage
+  std::map<std::string, std::vector<int>> shuffle_outputs = engine.Shuffle(map_outputs);
 
   return 0;
 }
