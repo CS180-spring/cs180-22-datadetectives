@@ -5,8 +5,8 @@
 #include "../src/CSVLoader.hpp"
 
 TEST(CSVLoad, RegularFile){
-
-    ifstream file("csvTestFiles/normal.csv");
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/normal.csv";
+    ifstream file(csv_path);
     vector<string> contents = {"number,name,school,type,year,ending", 
                                 "1,Jackie,UCR,Student one,final",
                                 "2,Gary,UCI,Student two,start",
@@ -22,7 +22,8 @@ TEST(CSVLoad, RegularFile){
 }
 
 TEST(CSVLoad, MultipleSpaces){
-    ifstream file("csvTestFiles/extraLines.csv");
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/extraLines.csv";
+    ifstream file(csv_path);
     vector<string> contents = {"number,name,school,type,year,ending", 
                                 "1,Jackie,UCR,Student one,final",
                                 "2,Gary,UCI,Student two,start",
