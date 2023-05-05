@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
 
 class MapReduceEngine {
  public:
@@ -31,6 +32,20 @@ class MapReduceEngine {
     return map_outputs;
   }
 
+
+  std::map<std::string, int> Reduce(const std::map<std::string, std::vector<int>> &pairedValues){
+    std::string key = pairedValues.begin()->first;
+    std::vector<int> values = pairedValues.at(key);
+
+    int total = 0;
+    for(int i = 0; i < values.size(); i++){
+        total += values[i];
+    }
+
+    std::map<std::string, int> reducedKeyValue;
+    reducedKeyValue[key] = total;
+    return reducedKeyValue; 
+  }
  private:
   IMapReduce& map_reduce_;
 };
