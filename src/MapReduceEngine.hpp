@@ -61,6 +61,7 @@ class MapReduceEngine {
     }
 
     // Print map results.
+    std::cout << "--------" << std::endl;
     std::cout << "MAP OUTPUTS" << std::endl;
     std::cout << "--------" << std::endl;
     for (const auto& record : map_outputs) {
@@ -82,13 +83,16 @@ class MapReduceEngine {
     }
 
     // Print shuffle phase outputs.
+    std::cout << "--------" << std::endl;
     std::cout << "SHUFFLE OUTPUTS" << std::endl;
     std::cout << "--------" << std::endl;
     for (const auto& [key, value] : shuffled_outputs) {
       std::cout << key << std::endl;
+      std::cout << "\t";
       for (const auto& elem : value) {
-        std::cout << "\t" << elem << std::endl;
+        std::cout << elem << " ";
       }
+      std::cout << std::endl;
     }
 
     return shuffled_outputs;
