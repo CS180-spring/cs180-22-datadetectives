@@ -9,7 +9,6 @@ This code was compiled and tested using C++ 17.
 How to execute Word Counter test:
 
 ```
-$ mkdir build
 $ cd build
 $ cmake ..
 $ make
