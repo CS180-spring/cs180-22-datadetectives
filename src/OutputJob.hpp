@@ -11,7 +11,7 @@ class OutputJob{
     void writeFile(string fileName, map<string, int> solution);
 };
 
-void writeFile(string fileName, map <string,int> solution){
+void OutputJob::writeFile(string fileName, map <string,int> solution){
     ofstream outfile(fileName);
     stringstream ss;
 

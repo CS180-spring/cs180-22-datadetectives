@@ -9,7 +9,7 @@ class WriteCSV{
     stringstream output_csv(map<string, int> solution);
 };
 
-stringstream output_csv(map <string,int> solution){
+stringstream WriteCSV::output_csv(map <string,int> solution){
     stringstream ss;
     map<string,int>::iterator it;
     for(it = solution.begin(); it != solution.end(); it++){
