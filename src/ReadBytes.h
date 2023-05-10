@@ -5,9 +5,9 @@
 using namespace std;
 
 class ReadBytes {
-	public:
+public:
 	void BytesRead(ifstream file);
-}
+};
 
 void ReadBytes::BytesRead(ifstream file) {
 	auto startTime = chrono::high_resolution_clock::now();
