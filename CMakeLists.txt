@@ -1,5 +1,3 @@
-
-
 CMAKE_MINIMUM_REQUIRED(VERSION 3.6)
 
 project(CS180DataDetectivesMapReduce)
@@ -20,14 +18,14 @@ ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
 
-ADD_EXECUTABLE(wordcount
-	testFiles/WordCountMapReduce.cpp
-	src/IMapReduce.hpp
-	src/JsonReader.hpp
-	src/MapReduceEngine.hpp
-)
+#ADD_EXECUTABLE(wordcount
+#	testFiles/WordCountMapReduce.cpp
+#	src/IMapReduce.hpp
+#	src/JsonReader.hpp
+#	src/MapReduceEngine.hpp
+#)
 
-set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
+#set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
 
 TARGET_LINK_LIBRARIES(test gtest)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

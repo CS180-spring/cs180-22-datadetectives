@@ -9,7 +9,7 @@ class WriteTXT{
     stringstream output_txt(map<string, int> solution);
 };
 
-stringstream output_txt(map <string,int> solution){
+stringstream WriteTXT::output_txt(map <string,int> solution){
     stringstream ss;
     map<string,int>::iterator it;
     for(it = solution.begin(); it != solution.end(); it++){

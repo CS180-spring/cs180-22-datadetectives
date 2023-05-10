@@ -8,7 +8,7 @@ class OpenFile{
     ifstream openFile(string inputFile);
 };
 
-ifstream openFile(std::string inputFile){
+ifstream OpenFile::openFile(std::string inputFile){
     ifstream iFile(inputFile);
     string s;
 

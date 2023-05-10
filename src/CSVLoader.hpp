@@ -24,14 +24,14 @@ vector<string> CSVLoader::loadMulCSV(vector<string> v){
     }
     return lines;
 }
-// //single csv file
-// vector <string> loadCSV(ifstream &inputFile){
-//     string s;
-//     vector<string>lines;
-//     while(getline(inputFile,s)){
-//         if(s.length() != 0){
-//             lines.push_back(s);
-//         }
-//     }
-//     return lines;
-// }
+//single csv file
+vector <string> CSVLoader::loadCSV(ifstream &inputFile){
+     string s;
+     vector<string>lines;
+     while(getline(inputFile,s)){
+         if(s.length() != 0){
+             lines.push_back(s);
+         }
+     }
+     return lines;
+ }

@@ -4,7 +4,12 @@
 #include <chrono>
 using namespace std;
 
-void BytesRead(ifstream file) {
+class ReadBytes {
+	public:
+	void BytesRead(ifstream file);
+}
+
+void ReadBytes::BytesRead(ifstream file) {
 	auto startTime = chrono::high_resolution_clock::now();
 	file.seekg(0, ios::end);
 	auto endTime = chrono::high_resolution_clock::now();
