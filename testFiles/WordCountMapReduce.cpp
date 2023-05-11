@@ -16,6 +16,11 @@ class WordCountMapReduce : public IMapReduce {
 
     return std::make_pair(record, 1);
   }
+
+  // Concrete Reduce implementation
+  int Reduce(const std::string& key, const std::vector<int>& values) override {
+    return std::accumulate(values.begin(), values.end(), 0);
+  }
 };
 
 // Main function

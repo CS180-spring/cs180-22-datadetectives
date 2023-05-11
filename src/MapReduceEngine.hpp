@@ -31,16 +31,6 @@ class MapReduceEngine {
 
     // Execute the reduce stage.
     std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
-
-    // Print reduce outputs.
-    std::cout << "------------------" << std::endl;
-    std::cout << "| REDUCE OUTPUTS |" << std::endl;
-    std::cout << "------------------" << std::endl;
-    for (const auto& [key, value] : reduce_outputs) {
-      std::cout << key << std::endl;
-      std::cout << "\t" << value << std::endl;
-      std::cout << std::endl;
-    }
   }
 
   // Map function.
@@ -94,18 +84,21 @@ class MapReduceEngine {
   // Reduce function.
   // Aggregate the values for each key using a user-define reduce function.
   // TODO we need to let the user specify this!
-  std::map<std::string, int> Reduce(const std::map<std::string, std::vector<int>> &pairedValues){
-    std::string key = pairedValues.begin()->first;
-    std::vector<int> values = pairedValues.at(key);
-
-    int total = 0;
-    for(int i = 0; i < values.size(); i++){
-        total += values[i];
+  std::map<std::string, int> Reduce(const std::map<std::string, std::vector<int>>& shuffle_outputs) {
+    std::map<std::string, int> reduce_outputs;
+    for (const auto& pair : shuffle_outputs) {
+      reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
 
-    std::map<std::string, int> reducedKeyValue;
-    reducedKeyValue[key] = total;
-    return reducedKeyValue; 
+    // Print reduce outputs.
+    std::cout << "------------------" << std::endl;
+    std::cout << "| REDUCE OUTPUTS |" << std::endl;
+    std::cout << "------------------" << std::endl;
+    for (const auto& [key, value] : reduce_outputs) {
+      std::cout << key << std::endl;
+      std::cout << "\t" << value << std::endl;
+      std::cout << std::endl;
+    }
   }
  
  private:

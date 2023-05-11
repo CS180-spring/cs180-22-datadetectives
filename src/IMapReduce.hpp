@@ -10,8 +10,13 @@
 class IMapReduce {
 public:
 
-  // Virtual mapper method
+  // Virtual mapper method.
+  // It is up to the user to implement this method.
   virtual std::pair<std::string, int> Map(const std::string& record) = 0;
+
+  // Virtual reduce method.
+  // It is up to the user to implement this method.
+  virtual int Reduce(const std::string& key, const std::vector<int>& values) = 0;
 };
 
 #endif
