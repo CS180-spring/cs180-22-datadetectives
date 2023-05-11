@@ -28,4 +28,5 @@ ADD_EXECUTABLE(test
 #set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
 
 TARGET_LINK_LIBRARIES(test gtest)
+
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
