@@ -24,7 +24,7 @@ int main() {
   // Read data from JSON
   std::string input_file = "/Users/vinayakgajjewar/Documents/Schoolwork/CS180/cs180-22-datadetectives/data/test.json";
   JsonReader wc_json_reader = JsonReader();
-  std::vector<std::string> data = wc_json_reader.ReadFile(input_file);
+  std::vector<std::string> data = wc_json_reader.ReadFile({input_file});
 
   // Create MapReduce implementation
   WordCountMapReduce word_count_map_reduce;
