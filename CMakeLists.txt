@@ -9,6 +9,7 @@ SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY(googletest)
 
+#[[
 #ADD_EXECUTABLE(run
 #	main.cpp
 #	src/CSVLoader.hpp
@@ -19,6 +20,7 @@ ADD_SUBDIRECTORY(googletest)
 ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
+]]
 
 ADD_EXECUTABLE(wordcount
 	testFiles/WordCountMapReduce.cpp
@@ -29,5 +31,8 @@ ADD_EXECUTABLE(wordcount
 
 set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
 
+#[[
 TARGET_LINK_LIBRARIES(test gtest)
+
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
+]]
