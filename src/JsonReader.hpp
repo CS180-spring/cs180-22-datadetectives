@@ -1,4 +1,8 @@
 // JsonReader.cpp
+
+#ifndef MAPREDUCE_SRC_JSONREADER_H_
+#define MAPREDUCE_SRC_JSONREADER_H_
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -81,3 +85,5 @@ void JsonReader::TraverseJson(json data, std::vector<std::string>& temp){
     }
   }
 }
+
+#endif
