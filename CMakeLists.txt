@@ -9,7 +9,6 @@ SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY(googletest)
 
-#[[
 #ADD_EXECUTABLE(run
 #	main.cpp
 #	src/CSVLoader.hpp
@@ -20,7 +19,6 @@ ADD_SUBDIRECTORY(googletest)
 ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
-]]
 
 ADD_EXECUTABLE(wordcount
 	testFiles/WordCountMapReduce.cpp
