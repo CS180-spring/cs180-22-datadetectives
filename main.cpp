@@ -23,8 +23,10 @@ int main(){
     cout << "Default Output Path: " << mr. getOutputName() << endl << endl;
 
     //add inputfile to job (CSV & Json)
-    mr.addInputPath("csvTestFiles/normal.csv");
-    mr.addInputPath("data/test.json");
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/data/normal.csv";
+    string json_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/data/test.json";
+    mr.addInputPath(csv_path);
+    mr.addInputPath(json_path);
     cout << "Files Added\n";
 
     //update output path:
@@ -40,14 +42,16 @@ int main(){
     cout << "Output Path: " << mr.getOutputName() << endl << endl;
 
     //openFiles
-    ifstream csv = openFile(p[0]);
-    ifstream json = openFile(p[1]);
+    OpenFile of;
+    ifstream csv = of.openFile(p[0]);
+    ifstream json = of.openFile(p[1]);
     cout << "Input Files are open\n";
 
     //readfiles into job
+    CSVLoader load;
     JsonReader my_json_reader = JsonReader();
-    vector<string> csvContents = loadCSV(csv);
-    vector<string> jsonContents = my_json_reader.ReadFile(p[1]);
+    vector<string> csvContents = load.loadCSV(csv);
+    //vector<string> jsonContents = my_json_reader.ReadFile(p[1]);
     cout << "Files have been read\n\n";
 
     //output contents for both files
@@ -56,10 +60,10 @@ int main(){
         cout << "Line " << i + 1 << ": " << csvContents[i]<< endl;
     }
     
-    cout << "\nFile contents for " << p[1] << ":\n";
+    /*cout << "\nFile contents for " << p[1] << ":\n";
     for(int i = 0; i < jsonContents.size(); i++){
         cout << "Line " << i + 1 << ": " << jsonContents[i]<< endl;
-    }
+    }*/
 
     return 0;
 }
