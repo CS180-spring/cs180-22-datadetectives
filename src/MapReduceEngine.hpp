@@ -21,11 +21,6 @@ class MapReduceEngine {
     // Run the map stage.
     std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
 
-    // Print map results
-    for (const auto& record : map_outputs) {
-      std::cout << record.first << ": " << record.second << std::endl;
-    }
-
     // Execute the shuffle stage.
     std::map<std::string, std::vector<int>> shuffle_outputs = this->Shuffle(map_outputs);
 
