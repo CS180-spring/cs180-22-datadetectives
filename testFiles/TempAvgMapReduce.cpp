@@ -25,9 +25,9 @@ class TempAvgMapReduce : public IMapReduce {
       fields.push_back(field);
     }
 
-    std::string date = fields[0];
-    int temperature = std::stoi(fields[3]);
-    return std::make_pair(date, temperature);
+    std::string key = fields[1];  // Modify this line to average over different keys.
+    int temperature = std::stoi(fields[3]);  // Modify this line to average highest or lowest temp.
+    return std::make_pair(key, temperature);
   }
 
   // Concrete Reduce implementation.
@@ -51,7 +51,7 @@ int main() {
   std::string x;
   std::vector<std::string> data;
   while (in_file >> x) {
-    std::cout << x << std::endl;
+    //std::cout << x << std::endl;
     data.push_back(x);
   }
   in_file.close();
