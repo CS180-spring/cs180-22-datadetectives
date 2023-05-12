@@ -94,6 +94,8 @@ class MapReduceEngine {
       std::cout << "\t" << value << std::endl;
       std::cout << std::endl;
     }
+
+    return reduce_outputs;
   }
  
  private:
