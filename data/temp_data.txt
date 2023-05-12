@@ -1,0 +1,10 @@
+saratoga,5-12-23,48,78
+saratoga,5-13-23,53,86
+saratoga,5-14-23,59,84
+saratoga,5-15-23,55,82
+saratoga,5-16-23,55,84
+saratoga,5-17-23,55,82
+saratoga,5-18-23,52,79
+saratoga,5-19-23,53,79
+saratoga,5-20-23,52,79
+saratoga,5-21-23,54,81
