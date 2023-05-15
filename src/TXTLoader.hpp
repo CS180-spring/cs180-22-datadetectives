@@ -7,7 +7,10 @@ using namespace std;
 
 class TXTloader{
 public:
-    vector<string> loadTXT(vector<string> v){
+    vector<string> loadTXT(vector<string> v);
+};
+
+vector<string> TXTloader::loadTXT(vector<string> v){
         string s;
         vector<string> lines; 
         for(int i = 0; i < v.size(); i++){
@@ -21,4 +24,3 @@ public:
         }
         return lines;
     }
-};
