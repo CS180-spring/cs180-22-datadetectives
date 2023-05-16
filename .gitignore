@@ -9,3 +9,4 @@ build/
 /out/build/x64-Debug
 CMakeSettings.json
 x64-Debug
+googletest/
