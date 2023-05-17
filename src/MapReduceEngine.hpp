@@ -17,8 +17,8 @@ class MapReduceEngine {
   // Constructor
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
-  // Run function
-  std::vector<std::pair<std::string, int>> Run(const std::vector<std::string>& input_data) {
+  // Run function for testing purposes
+  void Run(const std::vector<std::string>& input_data) {
 
     // Run the map stage.
     std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
@@ -113,7 +113,7 @@ class MapReduceEngine {
     for (const auto& pair : shuffle_outputs) {
       reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
-
+/*
     // Print reduce outputs.
     std::cout << "------------------" << std::endl;
     std::cout << "| REDUCE OUTPUTS |" << std::endl;
@@ -123,6 +123,7 @@ class MapReduceEngine {
       std::cout << "\t" << value << std::endl;
       std::cout << std::endl;
     }
+*/
 /*
     // This line waits for 1 second.
     // For testing purposes only.
