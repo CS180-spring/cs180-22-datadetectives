@@ -23,6 +23,11 @@ TEST(Integration, AvgTemp){
     ifstream file = of.openFile(csv_path);
     map<string, int> results = avgtemp.runMapReduce(userMapReduce, load.loadCSV(file));
     
+    EXPECT_EQ(results["5-12-23"], 77);
+    EXPECT_EQ(results["5-13-23"], 84);
+    EXPECT_EQ(results["5-14-23"], 82);
+    EXPECT_EQ(results["5-17-23"], 82);
+    EXPECT_EQ(results["5-19-23"], 77);
 }
 
 #endif //INTEGRATION_TEST_HPP
