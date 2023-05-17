@@ -1,5 +1,5 @@
 #ifndef CSVSPLIT_TEST_HPP
-#define CSVSPLIT_TSET_HPP
+#define CSVSPLIT_TEST_HPP
 
 #include "gtest/gtest.h"
 #include "../src/csvSplitter.hpp"
