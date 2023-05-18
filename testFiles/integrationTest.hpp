@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "../src/Concurrency.hpp"
 #include "TempAvgMapReduce.cpp"
+#include "WordCountMapReduce.cpp"
 
 using namespace std;
 
@@ -28,6 +29,24 @@ TEST(Integration, AvgTemp){
     EXPECT_EQ(results["5-14-23"], 82);
     EXPECT_EQ(results["5-17-23"], 82);
     EXPECT_EQ(results["5-19-23"], 77);
+}
+
+//word count with jsonReader
+TEST(Integration, WordCount){
+    Job config;
+    config.setMappers(4);
+    config.setReducers(4);
+
+    WordCountMapReduce userMapReduce;
+    Concurrency count(config);
+
+    JsonReader my_reader;
+    string file = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/test.json";
+
+    map<string, int> results = count.runMapReduce(userMapReduce, my_reader.ReadFile({file}));
+
+    EXPECT_EQ(results["hello"], 5);
+    EXPECT_EQ(results["i"], 3);
 }
 
 #endif //INTEGRATION_TEST_HPP
