@@ -31,7 +31,7 @@ TEST(Integration, AvgTemp){
     EXPECT_EQ(results["5-19-23"], 77);
 }
 
-//word count with jsonReader
+//word count with jsonReader and splitStr
 TEST(Integration, WordCount){
     Job config;
     config.setMappers(4);
@@ -43,10 +43,11 @@ TEST(Integration, WordCount){
     JsonReader my_reader;
     string file = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/test.json";
 
-    map<string, int> results = count.runMapReduce(userMapReduce, my_reader.ReadFile({file}));
+    map<string, int> results = count.runMapReduce(userMapReduce, my_reader.splitStr(my_reader.ReadFile({file})));
 
-    //EXPECT_EQ(results["hello"], 5);
-    //EXPECT_EQ(results["i"], 3);
+    EXPECT_EQ(results["hello"], 5);
+    EXPECT_EQ(results["i"], 3);
+    EXPECT_EQ(results["hi", 1]);
 }
 
 #endif //INTEGRATION_TEST_HPP
