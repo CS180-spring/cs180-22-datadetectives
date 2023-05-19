@@ -25,12 +25,12 @@ ADD_EXECUTABLE(test
 #	src/MapReduceEngine.hpp
 #)
 
-ADD_EXECUTABLE(tempavg
-	testFiles/TempAvgMapReduce.cpp
-	src/IMapReduce.hpp
-	src/JsonReader.hpp
-	src/MapReduceEngine.hpp
-)
+#ADD_EXECUTABLE(tempavg
+#	testFiles/TempAvgMapReduce.cpp
+#	src/IMapReduce.hpp
+#	src/JsonReader.hpp
+#	src/MapReduceEngine.hpp
+#)
 
 #set_target_properties(wordcount PROPERTIES LINKER_LANGUAGE CXX)
 
