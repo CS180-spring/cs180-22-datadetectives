@@ -18,6 +18,23 @@ ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
 
+ADD_LIBRARY(mylibrary
+	src/CSVLoader.hpp
+	src/IMapReduce.hpp
+	src/JsonReader.hpp
+	src/MapReduceEngine.hpp
+	src/TXTLoader.hpp
+	src/ReadBytes.h
+	src/OutputJob.hpp
+	src/WriteCSV.hpp
+	src/WriteJSON.hpp
+	src/WriteTXT.hpp
+	src/Job.hpp
+	src/Concurrency.hpp
+	src/csvSplitter.hpp
+	src/OpenFile.hpp
+)
+
 #ADD_EXECUTABLE(wordcount
 #	testFiles/WordCountMapReduce.cpp
 #	src/IMapReduce.hpp
