@@ -47,7 +47,26 @@ TEST(Integration, WordCount){
 
     EXPECT_EQ(results["hello"], 5);
     EXPECT_EQ(results["i"], 3);
-    EXPECT_EQ(results["hi", 1]);
+    EXPECT_EQ(results["hi"], 1);
+}
+
+TEST(Integration, CSVSplit){
+    Job config;
+    config.setMappers(4);
+    config.setReducers(4);
+
+    WordCountMapReduce userMapReduce;
+    Concurrency count(config);
+
+    OpenFile of;
+    CSVLoader load;
+    string path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/temp_data.txt";
+
+    ifstream file = of.openFile(path);
+    map<string, int> results = count.runMapReduce(userMapReduce, load.splitStr(load.loadCSV(file)));
+
+    EXPECT_EQ(results["saratoga"], 10);
+    EXPECT_EQ(results["5-12-23"], 4);
 }
 
 #endif //INTEGRATION_TEST_HPP
