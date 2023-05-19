@@ -17,8 +17,8 @@ class MapReduceEngine {
   // Constructor
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
-  // Run function
-  std::vector<std::pair<std::string, int>> Run(const std::vector<std::string>& input_data) {
+  // Run function for testing purposes
+  void Run(const std::vector<std::string>& input_data) {
 
     // Run the map stage.
     std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
@@ -51,7 +51,7 @@ class MapReduceEngine {
       std::cout << record.first << ": " << record.second << std::endl;
     }
     */
-
+/*
     // This line waits for 1 second.
     // For testing purposes only.
     std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(1405619385));
@@ -59,7 +59,7 @@ class MapReduceEngine {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Map stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return map_outputs;
   }
 
@@ -91,6 +91,7 @@ class MapReduceEngine {
     }
     */
 
+/*
     // This line waits for 1 second.
     // For testing purposes only.
     std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(9481958320));
@@ -98,7 +99,7 @@ class MapReduceEngine {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Shuffle stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return shuffled_outputs;
   }
 
@@ -112,7 +113,7 @@ class MapReduceEngine {
     for (const auto& pair : shuffle_outputs) {
       reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
-
+/*
     // Print reduce outputs.
     std::cout << "------------------" << std::endl;
     std::cout << "| REDUCE OUTPUTS |" << std::endl;
@@ -122,7 +123,8 @@ class MapReduceEngine {
       std::cout << "\t" << value << std::endl;
       std::cout << std::endl;
     }
-
+*/
+/*
     // This line waits for 1 second.
     // For testing purposes only.
     std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(3912093476));
@@ -130,7 +132,7 @@ class MapReduceEngine {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Reduce stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return reduce_outputs;
   }
  

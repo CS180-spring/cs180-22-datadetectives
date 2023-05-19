@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "loadCSV_Test.hpp"
 #include "OpenFile_Test.hpp"
-#include "job_Test.hpp"
+#include "integrationTest.hpp"
 #include "csvSplit_Test.hpp"
 
 int main(int argc, char **argv) {

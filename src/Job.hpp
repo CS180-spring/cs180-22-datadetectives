@@ -1,3 +1,6 @@
+#ifndef JOB_HPP
+#define JOB_HPP
+
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -22,3 +25,5 @@ class Job{
     string getOutputName(){return outputName;};
     vector< string> getPaths(){return inputPaths;};
 };
+
+#endif //JOB_HPP
