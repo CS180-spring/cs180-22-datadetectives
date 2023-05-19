@@ -18,7 +18,7 @@ ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
 
-ADD_LIBRARY(mylibrary
+ADD_LIBRARY(mylibrary STATIC
 	src/CSVLoader.hpp
 	src/IMapReduce.hpp
 	src/JsonReader.hpp
