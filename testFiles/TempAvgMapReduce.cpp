@@ -37,6 +37,7 @@ class TempAvgMapReduce : public IMapReduce {
   }
 };
 
+/*
 // Main function
 int main() {
 
@@ -67,3 +68,4 @@ int main() {
 
   return 0;
 }
+*/

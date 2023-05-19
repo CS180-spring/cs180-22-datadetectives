@@ -16,6 +16,7 @@ class JsonReader {
  public:
   std::vector<std::string> ReadFile(std::vector<std::string> v);
   void TraverseJson(json data, std::vector<std::string>& temp);
+  std::vector<std::string> splitStr(std::vector<std::string> file);
 };
 
 std::vector<std::string> JsonReader::ReadFile(std::vector<std::string> v) {
@@ -84,6 +85,33 @@ void JsonReader::TraverseJson(json data, std::vector<std::string>& temp){
       }
     }
   }
+}
+
+std::vector<std::string> JsonReader::splitStr(std::vector<std::string> file){
+  std::vector<std::string> temp;
+  std::string word = "";
+  auto it = file.begin();
+  for(int i = 0; i < file.size(); i = it - file.begin()){
+    for (auto x : file[i]){
+      if (x == ' '){
+        temp.push_back(word);
+        word = "";
+      }
+      else {
+        word = word + x;
+      }
+    }
+    temp.push_back(word);
+
+    file.erase(it);
+    file.insert(it, temp.begin(), temp.end());
+    it = std::vector<std::string>::iterator(&file[i]);
+    advance(it, temp.size());
+
+    temp.clear();
+    word = "";
+  }
+  return file;
 }
 
 #endif
