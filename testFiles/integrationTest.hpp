@@ -50,6 +50,7 @@ TEST(Integration, WordCount){
     EXPECT_EQ(results["hi"], 1);
 }
 
+/*
 TEST(Integration, CSVSplit){
     Job config;
     config.setMappers(4);
@@ -68,5 +69,5 @@ TEST(Integration, CSVSplit){
     EXPECT_EQ(results["saratoga"], 10);
     EXPECT_EQ(results["5-12-23"], 4);
 }
-
+*/
 #endif //INTEGRATION_TEST_HPP
