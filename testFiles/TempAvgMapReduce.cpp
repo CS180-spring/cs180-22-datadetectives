@@ -62,8 +62,13 @@ int main() {
   // Create MapReduce engine
   MapReduceEngine engine(temp_avg_map_reduce);
 
-  // Run engine
-  engine.Run(data);
+  /*
+   * Run MapReduce engine and print outputs.
+   */
+  std::vector<std::pair<std::string, int>> mr_results = engine.Run(data);
+  for (auto& record : mr_results) {
+    std::cout << record.first << ": " << record.second << std::endl;
+  }
 
   return 0;
 }
