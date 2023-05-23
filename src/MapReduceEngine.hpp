@@ -4,6 +4,8 @@
 #define MAPREDUCE_SRC_MAPREDUCEENGINE_H_
 
 #include "IMapReduce.hpp"
+#include "OutputSorter.hpp"
+
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -28,6 +30,12 @@ class MapReduceEngine {
 
     // Execute the reduce stage.
     std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
+
+    /*
+     * Sort the output by value in descending order (for test purposes).
+     */
+    OutputSorter output_sorter = OutputSorter();
+    return output_sorter.sortByValue(reduce_outputs, false);
   }
 
   // Map function.
@@ -42,20 +50,6 @@ class MapReduceEngine {
       map_outputs.push_back(map_reduce_.Map(record));
     }
 
-    // Print map results.
-    /*
-    std::cout << "---------------" << std::endl;
-    std::cout << "| MAP OUTPUTS |" << std::endl;
-    std::cout << "---------------" << std::endl;
-    for (const auto& record : map_outputs) {
-      std::cout << record.first << ": " << record.second << std::endl;
-    }
-    */
-
-    // This line waits for 1 second.
-    // For testing purposes only.
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(1405619385));
-
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Map stage duration: " << duration.count() << " ms" << std::endl;
@@ -63,10 +57,14 @@ class MapReduceEngine {
     return map_outputs;
   }
 
-  // Shuffle function.
-  // This function takes in a std::vector<std::pair<std::string, int>> of map outputs.
-  // It outputs a std::map<std::string, std::vector<int>> to be reduced.
-  std::map<std::string, std::vector<int>> Shuffle(const std::vector<std::pair<std::string, int>>& map_outputs) {
+  /*
+   * This shuffle function takes in a vector<pair<string, int>> and outputs a
+   * map<string, vector<int>> to be reduced. In the shuffle stage, we group each
+   * record by key.
+   */
+  std::map<std::string, std::vector<int>> Shuffle(
+    const std::vector<std::pair<std::string, int>>& map_outputs
+  ) {
 
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -75,25 +73,6 @@ class MapReduceEngine {
     for (const auto& pair : map_outputs) {
       shuffled_outputs[pair.first].push_back(pair.second);
     }
-
-    // Print shuffle phase outputs.
-    /*
-    std::cout << "-------------------" << std::endl;
-    std::cout << "| SHUFFLE OUTPUTS |" << std::endl;
-    std::cout << "-------------------" << std::endl;
-    for (const auto& [key, value] : shuffled_outputs) {
-      std::cout << key << std::endl;
-      std::cout << "\t";
-      for (const auto& elem : value) {
-        std::cout << elem << " ";
-      }
-      std::cout << std::endl;
-    }
-    */
-
-    // This line waits for 1 second.
-    // For testing purposes only.
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(9481958320));
 
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
@@ -112,20 +91,6 @@ class MapReduceEngine {
     for (const auto& pair : shuffle_outputs) {
       reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
-
-    // Print reduce outputs.
-    std::cout << "------------------" << std::endl;
-    std::cout << "| REDUCE OUTPUTS |" << std::endl;
-    std::cout << "------------------" << std::endl;
-    for (const auto& [key, value] : reduce_outputs) {
-      std::cout << key << std::endl;
-      std::cout << "\t" << value << std::endl;
-      std::cout << std::endl;
-    }
-
-    // This line waits for 1 second.
-    // For testing purposes only.
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(3912093476));
 
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
