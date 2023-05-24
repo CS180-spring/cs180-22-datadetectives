@@ -37,4 +37,30 @@ TEST(Filter, FilterValuesLessThan) {
   EXPECT_EQ(new_size2, 2) << "New length should be 2, is " << new_size2;
 }
 
+TEST(Filter, FilterValuesGreaterThan) {
+
+  /*
+   * Create a map with some dummy data.
+   */
+  std::map<std::string, int> my_map = {
+    {"apple", 2},
+    {"orange", 6},
+    {"cherry", 4},
+    {"grape", 9},
+    {"mango", 8}
+  };
+
+  /*
+   * Filter out all records with values greater than 7 and then filter out all
+   * records with values greater than 3.
+   */
+  Filter f;
+  f.FilterValuesGreaterThan(my_map, 7);
+  int new_size1 = my_map.size();
+  EXPECT_EQ(new_size1, 3) << "New length should be 3, is " << new_size1;
+  f.FilterValuesGreaterThan(my_map, 3);
+  int new_size2 = my_map.size();
+  EXPECT_EQ(new_size2, 1) << "New length should be 1, is " << new_size2;
+}
+
 #endif
