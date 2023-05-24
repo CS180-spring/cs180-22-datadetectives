@@ -56,4 +56,22 @@ void Filter::FilterValuesLessThan(
   }
 }
 
+void Filter::FilterValuesGreaterThan(
+  std::map<std::string, int>& my_map,
+  int upper_bound
+) {
+  
+  /*
+   * Iterate through the map and erase any records that don't satisfy the
+   * condition.
+   */
+  for (auto my_iter = my_map.begin(); my_iter != my_map.end();) {
+    if (my_iter->second > upper_bound) {
+      my_iter = my_map.erase(my_iter);
+    } else {
+      my_iter++;
+    }
+  }
+}
+
 #endif
