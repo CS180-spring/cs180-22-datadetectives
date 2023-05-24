@@ -47,7 +47,7 @@ void Filter::FilterValuesLessThan(
    * Iterate through the map and erase any records that don't satisfy the
    * condition.
    */
-  for (auto& my_iter = my_map.begin(); my_iter != my_map.end();) {
+  for (auto my_iter = my_map.begin(); my_iter != my_map.end();) {
     if (my_iter->second < lower_bound) {
       my_iter = my_map.erase(my_iter);
     } else {
