@@ -3,6 +3,7 @@
 #include "loadCSV_Test.hpp"
 #include "OpenFile_Test.hpp"
 #include "job_Test.hpp"
+#include "FilterTest.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
