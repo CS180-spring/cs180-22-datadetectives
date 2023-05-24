@@ -25,12 +25,16 @@ TEST(Filter, FilterValuesLessThan) {
   };
 
   /*
-   * Filter out all records with values less than 3.
+   * Filter out all records with values less than 3 and then filter out all
+   * records with values less than 6.
    */
   Filter f;
   f.FilterValuesLessThan(my_map, 3);
-  int new_size = my_map.size();
-  EXPECT_EQ(new_size, 3) << "New length should be 3, is " << new_size;
+  int new_size1 = my_map.size();
+  EXPECT_EQ(new_size1, 3) << "New length should be 3, is " << new_size1;
+  f.FilterValuesLessThan(my_map, 6);
+  int new_size2 = my_map.size();
+  EXPECT_EQ(new_size2, 2) << "New length should be 2, is " << new_size2;
 }
 
 #endif
