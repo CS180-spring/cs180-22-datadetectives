@@ -63,4 +63,27 @@ TEST(Filter, FilterValuesGreaterThan) {
   EXPECT_EQ(new_size2, 1) << "New length should be 1, is " << new_size2;
 }
 
+TEST(Filter, FilterValuesOutsideRange) {
+
+  /*
+   * Create a map with some dummy data.
+   */
+  std::map<std::string, int> my_map = {
+    {"hector", 9},
+    {"lalo", 1},
+    {"gus", 2},
+    {"jimmy", 4},
+    {"mike", 7}
+  };
+
+  /*
+   * Filter out all records with values outside the range 1 to 4. This operation
+   * should leave 3 records in the map.
+   */
+  Filter f;
+  f.FilterValuesOutsideRange(my_map, 1, 4);
+  int new_size = my_map.size();
+  EXPECT_EQ(new_size, 3) << "New length should be 3, is " << new_size;
+}
+
 #endif
