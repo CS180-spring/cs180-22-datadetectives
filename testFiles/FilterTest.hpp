@@ -86,4 +86,27 @@ TEST(Filter, FilterValuesOutsideRange) {
   EXPECT_EQ(new_size, 3) << "New length should be 3, is " << new_size;
 }
 
+TEST(Filter, FilterKeys) {
+
+  /*
+   * Create a map with some dummy data.
+   */
+  std::map<std::string, int> my_map = {
+    {"hector", 9},
+    {"lalo", 1},
+    {"gus", 2},
+    {"jimmy", 4},
+    {"mike", 7}
+  };
+
+  /*
+   * Filter out the keys "hector" and "lalo". This operation should leave 3
+   * records still in the map.
+   */
+  Filter f;
+  f.FilterKeys(my_map, {"hector", "lalo"});
+  int new_size = my_map.size();
+  EXPECT_EQ(new_size, 3) << "New length should be 3, is " << new_size;
+}
+
 #endif
