@@ -109,4 +109,26 @@ TEST(Filter, FilterKeys) {
   EXPECT_EQ(new_size, 3) << "New length should be 3, is " << new_size;
 }
 
+TEST(Filter, KeepKeys) {
+
+  /*
+   * Create a map with some dummy data.
+   */
+  std::map<std::string, int> my_map = {
+    {"hector", 9},
+    {"lalo", 1},
+    {"gus", 2},
+    {"jimmy", 4},
+    {"mike", 7}
+  };
+
+  /*
+   * Keep the keys "jimmy" and "mike".
+   */
+  Filter f;
+  f.KeepKeys(my_map, {"jimmy", "mike"});
+  int new_size = my_map.size();
+  EXPECT_EQ(new_size, 2) << "New length should be 2, is " << new_size;
+}
+
 #endif

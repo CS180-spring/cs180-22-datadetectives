@@ -113,4 +113,22 @@ void Filter::FilterKeys(
   }
 }
 
+void Filter::KeepKeys(
+  std::map<std::string, int>& my_map,
+  std::set<std::string> keys_to_filter
+) {
+
+  /*
+   * Iterate through the map and erase any records that don't satisfy the
+   * condition.
+   */
+  for (auto my_iter = my_map.begin(); my_iter != my_map.end();) {
+    if (keys_to_filter.find(my_iter->first) == keys_to_filter.end()) {
+      my_iter = my_map.erase(my_iter);
+    } else {
+      my_iter++;
+    }
+  }
+}
+
 #endif
