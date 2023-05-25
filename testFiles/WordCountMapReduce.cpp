@@ -22,7 +22,7 @@ class WordCountMapReduce : public IMapReduce {
     return std::accumulate(values.begin(), values.end(), 0);
   }
 };
-
+/*
 // Main function
 int main() {
 
@@ -42,3 +42,4 @@ int main() {
 
   return 0;
 }
+*/
