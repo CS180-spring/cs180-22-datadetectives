@@ -7,6 +7,7 @@
 #define MAPREDUCE_SRC_FILTER_H_
 
 #include <map>
+#include <set>
 #include <string>
 
 class Filter {
@@ -31,12 +32,12 @@ class Filter {
   /*
    * Filter out all the keys present in the supplied vector.
    */
-  void FilterKeys(std::map<std::string, int>&, std::vector<std::string>);
+  void FilterKeys(std::map<std::string, int>&, std::set<std::string>);
 
   /*
    * Keep all the keys present in the supplied vector and filter out the rest.
    */
-  void KeepKeys(std::map<std::string, int>&, std::vector<std::string>);
+  void KeepKeys(std::map<std::string, int>&, std::set<std::string>);
 };
 
 void Filter::FilterValuesLessThan(
@@ -87,6 +88,24 @@ void Filter::FilterValuesOutsideRange(
    */
   for (auto my_iter = my_map.begin(); my_iter != my_map.end();) {
     if (my_iter->second < lower_bound || my_iter->second > upper_bound) {
+      my_iter = my_map.erase(my_iter);
+    } else {
+      my_iter++;
+    }
+  }
+}
+
+void Filter::FilterKeys(
+  std::map<std::string, int>& my_map,
+  std::set<std::string> keys_to_filter
+) {
+
+  /*
+   * Iterate through the map and erase any records that don't satisfy the
+   * condition.
+   */
+  for (auto my_iter = my_map.begin(); my_iter != my_map.end();) {
+    if (keys_to_filter.find(my_iter->first) != keys_to_filter.end()) {
       my_iter = my_map.erase(my_iter);
     } else {
       my_iter++;
