@@ -65,7 +65,7 @@ int main() {
   /*
    * Run MapReduce engine and print outputs.
    */
-  std::vector<std::pair<std::string, int>> mr_results = engine.Run(data);
+  std::map<std::string, int> mr_results = engine.Run(data);
   for (auto& record : mr_results) {
     std::cout << record.first << ": " << record.second << std::endl;
   }

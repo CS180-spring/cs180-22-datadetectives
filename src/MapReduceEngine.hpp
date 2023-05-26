@@ -20,7 +20,7 @@ class MapReduceEngine {
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
   // Run function
-  std::vector<std::pair<std::string, int>> Run(const std::vector<std::string>& input_data) {
+  std::map<std::string, int> Run(const std::vector<std::string>& input_data) {
 
     // Run the map stage.
     std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
@@ -32,10 +32,9 @@ class MapReduceEngine {
     std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
 
     /*
-     * Sort the output by value in descending order (for test purposes).
+     * Return the output of the reduce operation.
      */
-    OutputSorter output_sorter = OutputSorter();
-    return output_sorter.sortByValue(reduce_outputs, false);
+    return reduce_outputs;
   }
 
   // Map function.
