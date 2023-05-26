@@ -49,10 +49,24 @@ class MapReduceEngine {
       map_outputs.push_back(map_reduce_.Map(record));
     }
 
+    // Print map results.
+    /*
+    std::cout << "---------------" << std::endl;
+    std::cout << "| MAP OUTPUTS |" << std::endl;
+    std::cout << "---------------" << std::endl;
+    for (const auto& record : map_outputs) {
+      std::cout << record.first << ": " << record.second << std::endl;
+    }
+    */
+/*
+    // This line waits for 1 second.
+    // For testing purposes only.
+    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(1405619385));
+
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Map stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return map_outputs;
   }
 
@@ -73,10 +87,30 @@ class MapReduceEngine {
       shuffled_outputs[pair.first].push_back(pair.second);
     }
 
+    // Print shuffle phase outputs.
+    /*
+    std::cout << "-------------------" << std::endl;
+    std::cout << "| SHUFFLE OUTPUTS |" << std::endl;
+    std::cout << "-------------------" << std::endl;
+    for (const auto& [key, value] : shuffled_outputs) {
+      std::cout << key << std::endl;
+      std::cout << "\t";
+      for (const auto& elem : value) {
+        std::cout << elem << " ";
+      }
+      std::cout << std::endl;
+    }
+    */
+
+/*
+    // This line waits for 1 second.
+    // For testing purposes only.
+    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(9481958320));
+
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Shuffle stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return shuffled_outputs;
   }
 
@@ -91,10 +125,26 @@ class MapReduceEngine {
       reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
 
+/*
+    // Print reduce outputs.
+    std::cout << "------------------" << std::endl;
+    std::cout << "| REDUCE OUTPUTS |" << std::endl;
+    std::cout << "------------------" << std::endl;
+    for (const auto& [key, value] : reduce_outputs) {
+      std::cout << key << std::endl;
+      std::cout << "\t" << value << std::endl;
+      std::cout << std::endl;
+    }
+*/
+/*
+    // This line waits for 1 second.
+    // For testing purposes only.
+    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::nanoseconds(3912093476));
+
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Reduce stage duration: " << duration.count() << " ms" << std::endl;
-
+*/
     return reduce_outputs;
   }
  
