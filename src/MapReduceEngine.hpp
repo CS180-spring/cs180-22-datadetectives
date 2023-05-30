@@ -31,6 +31,14 @@ class MapReduceEngine {
   ) {
 
     /*
+     * If the supplied vector is empty, we want to print a warning and then
+     * proceed as normal.
+     */
+    if (input_data.size() == 0) {
+      std::cout << "WARNING: Input for Map is not empty." << std::endl;
+    }
+
+    /*
      * Run the user-defined Map operation on each input record.
      */
     std::vector<std::pair<std::string, int>> map_outputs;
