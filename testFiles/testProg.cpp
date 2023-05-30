@@ -1,5 +1,6 @@
 
 #include "gtest/gtest.h"
+#include "MapTest.hpp"
 #include "ShuffleTest.hpp"
 #include "ReduceTest.hpp"
 #include "loadCSV_Test.hpp"
