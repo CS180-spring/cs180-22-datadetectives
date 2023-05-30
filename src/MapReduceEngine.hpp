@@ -4,6 +4,8 @@
 #define MAPREDUCE_SRC_MAPREDUCEENGINE_H_
 
 #include "IMapReduce.hpp"
+#include "OutputSorter.hpp"
+
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -17,8 +19,8 @@ class MapReduceEngine {
   // Constructor
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
-  // Run function for testing purposes
-  void Run(const std::vector<std::string>& input_data) {
+  // Run function
+  std::map<std::string, int> Run(const std::vector<std::string>& input_data) {
 
     // Run the map stage.
     std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
@@ -28,6 +30,11 @@ class MapReduceEngine {
 
     // Execute the reduce stage.
     std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
+
+    /*
+     * Return the output of the reduce operation.
+     */
+    return reduce_outputs;
   }
 
   // Map function.
@@ -63,10 +70,14 @@ class MapReduceEngine {
     return map_outputs;
   }
 
-  // Shuffle function.
-  // This function takes in a std::vector<std::pair<std::string, int>> of map outputs.
-  // It outputs a std::map<std::string, std::vector<int>> to be reduced.
-  std::map<std::string, std::vector<int>> Shuffle(const std::vector<std::pair<std::string, int>>& map_outputs) {
+  /*
+   * This shuffle function takes in a vector<pair<string, int>> and outputs a
+   * map<string, vector<int>> to be reduced. In the shuffle stage, we group each
+   * record by key.
+   */
+  std::map<std::string, std::vector<int>> Shuffle(
+    const std::vector<std::pair<std::string, int>>& map_outputs
+  ) {
 
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -113,6 +124,7 @@ class MapReduceEngine {
     for (const auto& pair : shuffle_outputs) {
       reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
     }
+
 /*
     // Print reduce outputs.
     std::cout << "------------------" << std::endl;
