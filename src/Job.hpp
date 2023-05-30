@@ -44,8 +44,19 @@ class Job {
    * Set the number of threads to use when executing the Reduce operation.
    */
   void setReducers(int r) {
+
+    /*
+     * The number of mappers must be a positive number. If it is not, print an
+     * error message and return early.
+     */
+    if (r <= 0) {
+      std::cerr << "ERROR: # of reducers should be a positive number." << std::endl;
+      return;
+    }
+
     reducers = r;
   };
+
   void addInputPath(string s){inputPaths.push_back(s); ++fileCount;};
   void setOutputPath(string s){outputName = s;};
   int getMappers(){return mappers;};
