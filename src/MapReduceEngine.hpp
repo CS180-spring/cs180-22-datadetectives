@@ -61,7 +61,13 @@ class MapReduceEngine {
     const std::vector<std::pair<std::string, int>>& map_outputs
   ) {
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    /*
+     * If the supplied vector is empty, we want to print a warning and then
+     * proceed as normal.
+     */
+    if (map_outputs.size() == 0) {
+      std::cout << "WARNING: Input for Shuffle is not empty." << std::endl;
+    }
 
     // Group intermediate key-value pairs by key.
     std::map<std::string, std::vector<int>> shuffled_outputs;
