@@ -58,7 +58,37 @@ TEST(Map, MapBasic) {
    * Test the output of the map for correctness.
    */
   EXPECT_EQ(output.size(), 5);
+  EXPECT_EQ(output[0].first, "jimmy");
+  EXPECT_EQ(output[0].second, 1);
+  EXPECT_EQ(output[1].first, "nacho");
+  EXPECT_EQ(output[1].second, 1);
+  EXPECT_EQ(output[2].first, "kim");
+  EXPECT_EQ(output[2].second, 1);
+  EXPECT_EQ(output[3].first, "chuck");
+  EXPECT_EQ(output[3].second, 1);
+  EXPECT_EQ(output[4].first, "howard");
+  EXPECT_EQ(output[4].second, 1);
+}
 
+TEST(Map, MapEmpty) {
+
+  /*
+   * Create an empty vector.
+   */
+  std::vector<std::string> empty = {};
+
+  /*
+   * Run the map operation on the empty vector.
+   */
+  MapTestMapReduce map_test_map_reduce;
+  MapReduceEngine engine(map_test_map_reduce);
+  std::vector<std::pair<std::string, int>> output = engine.Map(empty);
+
+  /*
+   * If an empty vector is passed into the map function, we don't want to throw
+   * an error. We just want to print a warning and return an empty vector.
+   */
+  EXPECT_EQ(output.size(), 0);
 }
 
 #endif
