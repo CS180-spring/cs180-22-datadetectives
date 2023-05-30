@@ -1,34 +1,71 @@
 #include <fstream>
 #include <sstream>
-#include "WriteJSON.hpp"
-#include "WriteCSV.hpp"
-#include "WriteTXT.hpp"
+#include <map>
+#include <string>
+#include <iostream>
 
 using namespace std;
 
-class OutputJob{
-    public:
-    void writeFile(string fileName, map<string, int> solution);
+class WriteFormat{
+  public:
+    virtual void writeFile(string fileName, map<string, int>& solution) const = 0;
 };
 
-void writeFile(string fileName, map <string,int> solution){
-    ofstream outfile(fileName);
-    stringstream ss;
+class WriteCSV : public WriteFormat{
+  public:
+    void writeFile(string fileName, map<string, int>& solution) const override{
+      ofstream outFile(fileName);
+      if(!outFile){
+        cout << fileName << " could not be opened.\n";
+      }
+      map<string,int>::iterator it;
+      for(it = solution.begin(); it != solution.end(); it++){
+        outFile << it->first << ',' << it->second << std::endl;
+      }
+      outFile.close();
+    }
+};
 
-    size_t dot = fileName.find_last_of(".");
-    if(fileName.substr(dot + 1) == "txt"){
-      ss = output_txt(solution);
+class WriteJSON : public WriteFormat{
+  public:
+    void writeFile(string fileName, map<string, int>& solution) const override{
+      ofstream outFile(fileName);
+      if(!outFile){
+        cout << fileName << " could not be opened.\n";
+      }
+      map<string,int>::iterator it;
+      for(it = solution.begin(); it != solution.end(); it++){
+            outFile << "{\"" << it->first << "\": \"" << it->second << "\"}";
+            if (std::next(it) != solution.end()) {
+                outFile << ",";
+            }
+            outFile << endl;
+      }
+      outFile.close();
     }
-    else if(fileName.substr(dot + 1) == "csv"){
-     ss =  output_csv(solution);
-    }
-    else if(fileName.substr(dot + 1) == "json"){
-      ss = output_json(solution);
-    }
-    else{
-      cout << "Invalid file type\n";
-    }
+};
 
-    outfile << ss.str();
-    outfile.close();
-}
+class WriteTXT : public WriteFormat{
+  public:
+    void writeFile(string fileName, map<string, int>& solution) const override{
+      ofstream outFile(fileName);
+      if(!outFile){
+        cout << fileName << " could not be opened.\n";
+      }
+      map<string,int>::iterator it;
+      for(it = solution.begin(); it != solution.end(); it++){
+        outFile << it->first << ',' << it->second << endl;
+      }
+      outFile.close();
+    }
+};
+
+class Printer{
+  private:
+    WriteFormat* writer;
+  public:
+    Printer(WriteFormat* format): writer(format){};
+    void output(string fileName, map<string, int>& solution){
+      writer->writeFile(fileName, solution);
+    }
+};
