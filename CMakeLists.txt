@@ -18,6 +18,7 @@ ADD_EXECUTABLE(test
 	testFiles/testProg.cpp
 )
 
+#define library
 ADD_LIBRARY(mylibrary STATIC
 	src/CSVLoader.hpp
 	src/IMapReduce.hpp
@@ -34,6 +35,30 @@ ADD_LIBRARY(mylibrary STATIC
 	src/csvSplitter.hpp
 	src/OpenFile.hpp
 )
+
+#specifying directories
+target_include_directories(mylibrary
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+#install library
+install(TARGETS mylibrary
+    EXPORT MyLibraryTargets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+#instill header files
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/ DESTINATION include)
+
+#cmake export
+install(EXPORT mylibraryTargets
+    FILE mylibraryTargets.cmake
+    DESTINATION lib/cmake/mylibrary
+)
+
 
 #ADD_EXECUTABLE(wordcount
 #	testFiles/WordCountMapReduce.cpp
