@@ -63,4 +63,25 @@ TEST(Shuffle, ShuffleBasic) {
   EXPECT_EQ(output["howard"][1], 5);
 }
 
+TEST(Shuffle, ShuffleEmpty) {
+
+  /*
+   * Create an empty vector.
+   */
+  std::vector<std::pair<std::string, int>> empty = {};
+
+  /*
+   * Create a MapReduce object and run the shuffle stage. We want this code to
+   * print a warning and then proceed as normal.
+   */
+  ShuffleTestMapReduce shuffle_test_map_reduce;
+  MapReduceEngine engine(shuffle_test_map_reduce);
+  std::map<std::string, std::vector<int>> output = engine.Shuffle(empty);
+
+  /*
+   * The output map should have no entries.
+   */
+  EXPECT_EQ(output.size(), 0);
+}
+
 #endif
