@@ -39,7 +39,13 @@ Concurrency::Concurrency(Job config){
     redThreadCount = config.getReducers();
 }
 
-std::map<std::string, int> Concurrency::runMapReduce(IMapReduce& userMapReduce, const std::vector<std::string>& inputFiles){
+std::map<std::string, int> Concurrency::runMapReduce(
+    IMapReduce& userMapReduce,
+    const std::vector<std::string>& inputFiles
+) {
+
+    std::cout << "DEBUG: Beginning of runMapReduce()." << std::endl;
+
     MapReduceEngine map_reducer_engine(userMapReduce);
     csvSplitter splitter(mapThreadCount, redThreadCount);
     outputs mapper_outputs;

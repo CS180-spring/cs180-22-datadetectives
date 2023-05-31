@@ -105,7 +105,12 @@ std::vector<std::string> JsonReader::splitStr(std::vector<std::string> file){
 
     file.erase(it);
     file.insert(it, temp.begin(), temp.end());
-    it = std::vector<std::string>::iterator(&file[i]);
+
+    /*
+     * Error here
+     */
+    //it = std::vector<std::string>::iterator(file[i]);
+    it = file.begin() + i;
     advance(it, temp.size());
 
     temp.clear();
