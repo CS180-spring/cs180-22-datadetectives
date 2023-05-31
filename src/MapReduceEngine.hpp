@@ -102,15 +102,18 @@ class MapReduceEngine {
     return shuffled_outputs;
   }
 
-  // Reduce function.
-  // Aggregate the values for each key using a user-define reduce function.
-  std::map<std::string, int> Reduce(const std::map<std::string, std::vector<int>>& shuffle_outputs) {
-
-    auto start_time = std::chrono::high_resolution_clock::now();
+  /*
+   * Aggregate the values for each key using a user-defined reduce function.
+   */
+  std::map<std::string, int> Reduce(
+    const std::map<std::string, std::vector<int>>& shuffle_outputs
+  ) {
 
     std::map<std::string, int> reduce_outputs;
     for (const auto& pair : shuffle_outputs) {
-      reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
+      reduce_outputs.emplace(
+        pair.first,
+        map_reduce_.Reduce(pair.first, pair.second));
     }
 
     return reduce_outputs;
