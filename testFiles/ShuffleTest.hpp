@@ -2,8 +2,8 @@
  * Test suite for the Shuffle operation.
  */
 
-#ifndef MAPREDUCE_TESTFILES_SHUFFLETEST_H_
-#define MAPREDUCE_TESTFILES_SHUFFLETEST_H_
+#ifndef CS180_22_DATADETECTIVES_TESTFILES_SHUFFLETEST_HPP_
+#define CS180_22_DATADETECTIVES_TESTFILES_SHUFFLETEST_HPP_
 
 #include "gtest/gtest.h"
 #include "../src/MapReduceEngine.hpp"

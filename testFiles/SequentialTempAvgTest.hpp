@@ -3,8 +3,8 @@
  * End-to-end testing for our MapReduce framework without multiprocessing.
  */
 
-#ifndef MAPREDUCE_TESTFILES_SEQUENTIALTEMPAVGTEST_H_
-#define MAPREDUCE_TESTFILES_SEQUENTIALTEMPAVGTEST_H_
+#ifndef CS180_22_DATADETECTIVES_TESTFILES_SEQUENTIALTEMPAVGTEST_HPP_
+#define CS180_22_DATADETECTIVES_TESTFILES_SEQUENTIALTEMPAVGTEST_HPP_
 
 #include "gtest/gtest.h"
 
@@ -37,8 +37,10 @@ class TempAvgMapReduceTestOverDate : public IMapReduce {
     return std::make_pair(key, temperature);
   }
 
-  // Concrete Reduce implementation.
-  // Calculate average temperature for each key.
+  /*
+   * Define a concrete Reduce implementation. This function calculates the
+   * average temperature for each key.
+   */
   int Reduce(const std::string& key, const std::vector<int>& values) override {
     return std::accumulate(values.begin(), values.end(), 0) / values.size();
   }

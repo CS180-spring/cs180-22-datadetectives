@@ -2,8 +2,8 @@
  * Test suite for the Map operation.
  */
 
-#ifndef MAPREDUCE_TESTFILES_MAPTEST_H_
-#define MAPREDUCE_TESTFILES_MAPTEST_H_
+#ifndef CS180_22_DATADETECTIVES_TESTFILES_MAPTEST_HPP_
+#define CS180_22_DATADETECTIVES_TESTFILES_MAPTEST_HPP_
 
 #include "gtest/gtest.h"
 #include "../src/MapReduceEngine.hpp"

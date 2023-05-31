@@ -3,8 +3,8 @@
  * This file contains a test suite for the Reduce operation.
  */
 
-#ifndef MAPREDUCE_TESTFILES_REDUCETEST_H_
-#define MAPREDUCE_TESTFILES_REDUCETEST_H_
+#ifndef CS180_22_DATADETECTIVES_TESTFILES_REDUCETEST_HPP_
+#define CS180_22_DATADETECTIVES_TESTFILES_REDUCETEST_HPP_
 
 #include "gtest/gtest.h"
 #include "../src/MapReduceEngine.hpp"
