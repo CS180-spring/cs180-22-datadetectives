@@ -20,7 +20,31 @@ class MapReduceEngine {
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
   // Run function
-  std::map<std::string, int> Run(const std::vector<std::string>& input_data);
+  std::map<std::string, int> Run(const std::vector<std::string>& input_data) {
+
+    /*
+     * First, run the map stage on the input dataset.
+     */
+    std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
+
+    /*
+     * Next, we execute the shuffle stage using the results from the map
+     * operation.
+     */
+    std::map<std::string, std::vector<int>> shuffle_outputs = this->Shuffle(
+      map_outputs
+    );
+
+    /*
+     * Finally, we execute the reduce stage using the shuffled outputs.
+     */
+    std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
+
+    /*
+     * Return the output of the reduce operation.
+     */
+    return reduce_outputs;
+  }
 
   /*
    * Map function definition. All we do here is just run the user-defined map

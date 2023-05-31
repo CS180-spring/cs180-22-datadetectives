@@ -3,6 +3,7 @@
 #include "MapTest.hpp"
 #include "ShuffleTest.hpp"
 #include "ReduceTest.hpp"
+#include "SequentialTempAvgTest.hpp"
 #include "loadCSV_Test.hpp"
 #include "OpenFile_Test.hpp"
 #include "job_Test.hpp"
