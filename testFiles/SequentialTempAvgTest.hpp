@@ -17,6 +17,9 @@
 #include "../src/MapReduceEngine.hpp"
 #include "../src/JsonReader.hpp"
 
+/*
+ * Define a concrete MapReduce implementation that averages over date.
+ */
 class TempAvgMapReduceTestOverDate : public IMapReduce {
  public:
 
@@ -41,6 +44,9 @@ class TempAvgMapReduceTestOverDate : public IMapReduce {
   }
 };
 
+/*
+ * Define a concrete MapReduce implementation that averages over location.
+ */
 class TempAvgMapReduceTestOverLoc : public IMapReduce {
  public:
 
@@ -89,6 +95,9 @@ TEST(SequentialTempAvgTest, AvgOverDate) {
   // Create MapReduce engine
   MapReduceEngine engine(temp_avg_map_reduce);
 
+  /*
+   * Run MapReduce sequentially and collect the results.
+   */
   std::map<std::string, int> mr_results = engine.Run(data);
 
   /*
@@ -127,11 +136,19 @@ TEST(SequentialTempAvgTest, AvgOverLoc) {
   // Create MapReduce implementation
   TempAvgMapReduceTestOverLoc temp_avg_map_reduce;
 
-  // Create MapReduce engine
+  /*
+   * Create an instance of the MapReduce engine.
+   */
   MapReduceEngine engine(temp_avg_map_reduce);
 
+  /*
+   * Run the sequential MapReduce engine and collect the results.
+   */
   std::map<std::string, int> mr_results = engine.Run(data);
 
+  /*
+   * Test the MapReduce output for correctness.
+   */
   EXPECT_EQ(mr_results["goleta"], 76);
   EXPECT_EQ(mr_results["riverside"], 86);
   EXPECT_EQ(mr_results["saratoga"], 81);
