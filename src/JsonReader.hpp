@@ -1,7 +1,7 @@
 // JsonReader.cpp
 
-#ifndef MAPREDUCE_SRC_JSONREADER_H_
-#define MAPREDUCE_SRC_JSONREADER_H_
+#ifndef CS180_22_DATADETECTIVES_SRC_JSONREADER_HPP_
+#define CS180_22_DATADETECTIVES_SRC_JSONREADER_HPP_
 
 #include <iostream>
 #include <fstream>
