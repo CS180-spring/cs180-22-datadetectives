@@ -23,3 +23,4 @@ ifstream OpenFile::openFile(std::string inputFile){
         return iFile;
     }
 }
+
