@@ -1,3 +1,6 @@
+#ifndef OPENFILE_HPP
+#define OPENFILE_HPP
+
 #include <fstream>
 #include <iostream>
 
@@ -24,3 +27,4 @@ ifstream OpenFile::openFile(std::string inputFile){
     }
 }
 
+#endif
