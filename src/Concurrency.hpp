@@ -53,10 +53,15 @@ std::map<std::string, int> Concurrency::runMapReduce(
     reducerOutputs reducer_outputs;
 
     std::cout << "DEBUG: About to call splitCsv()." << std::endl;
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
 
     //Split inputData for mappers
     std::vector<std::vector<std::string>> splitData = splitter.splitCsv(inputFiles);
 
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
     std::cout << "DEBUG: Finished splitCsv()." << std::endl;
 
     //Create mapper threads by loop
@@ -74,7 +79,7 @@ std::map<std::string, int> Concurrency::runMapReduce(
      * and mutexes, but I am not brave enough for that. This is the quick and
      * dirty solution.
      */
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    //std::this_thread::sleep_for(std::chrono::seconds(2));
 
     //close threads
     for (auto& th : mappers) {
@@ -101,7 +106,7 @@ std::map<std::string, int> Concurrency::runMapReduce(
     /*
      * Quick and dirty hotfix for segmentation fault issues.
      */
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    //std::this_thread::sleep_for(std::chrono::seconds(2));
 
     //close threads
     for (auto& th : reducers) th.join();

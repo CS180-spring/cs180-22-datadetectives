@@ -5,6 +5,8 @@
 #include "../src/Concurrency.hpp"
 #include "TempAvgMapReduce.cpp"
 #include "WordCountMapReduce.cpp"
+#include "CarAvgPrice.cpp"
+#include "TrafficAvg.cpp"
 
 using namespace std;
 
@@ -48,6 +50,117 @@ TEST(Integration, WordCount){
     EXPECT_EQ(results["hello"], 5);
     EXPECT_EQ(results["i"], 3);
     EXPECT_EQ(results["hi"], 1);
+}
+
+//csvfile with 2.5 million lines ~223MB
+TEST(Integration, LargeFileConc){
+
+    //timer
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
+
+    Job config;
+    config.setMappers(14);
+    config.setReducers(4);
+
+    CarAvgMapReduce userMapReduce;
+    Concurrency avgprice(config);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/car_sales_data.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
+    
+    //timer end
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+}
+
+//same test but not concurrent
+TEST(Integration, LargeFileSeq){
+
+    //timer
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
+
+
+    CarAvgMapReduce userMapReduce;
+    MapReduceEngine engine(userMapReduce);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/car_sales_data.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = engine.Run( load.loadCSV(file));
+    
+    //timer end
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
+}
+
+//csv file ~1.8GB
+TEST(Integration, HugeFileConc){
+
+    //timer
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
+
+    Job config;
+    config.setMappers(14);
+    config.setReducers(12);
+
+    TrafficAvgMapReduce userMapReduce;
+    Concurrency avgprice(config);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/yellow_tripdata_2016-03.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
+    
+    //timer end
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+}
+
+
+//same test but not concurrent
+TEST(Integration, HugeFileSeq){
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+
+    //timer
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
+
+
+    TrafficAvgMapReduce userMapReduce;
+    MapReduceEngine engine(userMapReduce);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/yellow_tripdata_2016-03.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = engine.Run( load.loadCSV(file));
+    
+    //timer end
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
 }
 
 /*
