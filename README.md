@@ -38,7 +38,7 @@ $ ./wordcount
 
 ## Developer Use
 
-Step by step guide
+### Step by step guide
 
 Override abstract class IMapReduce with user-defined map and reduce functions
 
@@ -49,12 +49,12 @@ int Reduce(const std::string& key, const std::vector<int>& values)
 ```
 
 User may initialize Job object to establish configuration values:
-`mapper & reducer thread count, file count, and file paths`
+mapper & reducer thread count, file count, and file paths
 (or default values will be used)
 
 User initializes user-defined IMapReduce and Concurrency objects
 
-User can either use library methods to open and read file(s) or their own in order to return vector<string>
+User can either use library methods to open and read file(s) or their own in order to return std::vector of strings
 
 ```
 JsonReader::ReadFile(ifstream &inputFile)
