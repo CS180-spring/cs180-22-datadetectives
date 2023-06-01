@@ -48,3 +48,19 @@ std::pair<std::string, int> Map(const std::string& record)
 int Reduce(const std::string& key, const std::vector<int>& values)
 ```
 
+User may initialize Job object to establish configuration values:
+`mapper & reducer thread count, file count, and file paths`
+(or default values will be used)
+
+User initializes user-defined IMapReduce and Concurrency objects
+
+User can either use library methods to open and read file(s) or their own in order to return vector<string>
+
+```
+JsonReader::ReadFile(ifstream &inputFile)
+TXTloader::loadTXT(ifstream &inputFile)
+CSVLoader::loadCSV(ifstream &inputFile)
+```
+
+Calling `runMapReduce(IMapReduce& userMapReduce, const std::vector<std::string>& inputFiles)` will return the resulting std::map of designated <string, int> pairs
+
