@@ -21,10 +21,10 @@ To run our full GoogleTest test suite, execute the following commands in the
 terminal:
 
 ```
-cd build
-cmake ..
-make
-./test
+$ cd build
+$ cmake ..
+$ make
+$ ./test
 ```
 
 How to execute Word Counter test:
@@ -36,8 +36,15 @@ $ make
 $ ./wordcount
 ```
 
-Command to execute JSON reader test:
+## Developer Use
+
+Step by step guide
+
+Override abstract class IMapReduce with user-defined map and reduce functions
 
 ```
-$ g++ test/JsonReaderTest.cpp -std=c++17 && ./a.out
+std::pair<std::string, int> Map(const std::string& record)
+
+int Reduce(const std::string& key, const std::vector<int>& values)
 ```
+
