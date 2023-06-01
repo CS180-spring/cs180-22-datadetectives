@@ -10,6 +10,7 @@ int main() {
     JsonReader my_json_reader = JsonReader();
     std::vector<std::string> v;
     v.push_back("../data/data.json");
+    v.push_back("../data/data.json");
 
     // v.push_back("../jsonTestFiles/blank.json");
 
