@@ -8,11 +8,11 @@ TEST(CSVLoad, RegularFile){
     CSVLoader load;
     string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/normal.csv";
     ifstream file(csv_path);
-    vector<string> contents = {"number,name,school,type,year,ending", 
-                                "1,Jackie,UCR,Student one,final",
-                                "2,Gary,UCI,Student two,start",
-                                "3,test, space, before,2", 
-                                "4,,,4"};
+    vector<string> contents = {"number,name,school,type,year,ending\r", 
+                                "1,Jackie,UCR,Student one,final\r",
+                                "2,Gary,UCI,Student two,start\r",
+                                "3,test, space, before,2\r", 
+                                "4,,,4\r"};
 
     vector<string> function = load.loadCSV(file);
 
@@ -26,11 +26,11 @@ TEST(CSVLoad, MultipleSpaces){
     CSVLoader load;
     string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/extraLines.csv";
     ifstream file(csv_path);
-    vector<string> contents = {"number,name,school,type,year,ending", 
-                                "1,Jackie,UCR,Student one,final",
-                                "2,Gary,UCI,Student two,start",
-                                "3,test, space, before,2", 
-                                "4,,,4"};
+    vector<string> contents = {"number,name,school,type,year,ending\r", 
+                                "1,Jackie,UCR,Student one,final\r",
+                                "2,Gary,UCI,Student two,start\r",
+                                "3,test, space, before,2\r", 
+                                "4,,,4\r"};
 
     vector<string> function = load.loadCSV(file);
 
