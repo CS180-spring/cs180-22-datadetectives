@@ -55,10 +55,6 @@ TEST(Integration, WordCount){
 //csvfile with 2.5 million lines ~223MB
 TEST(Integration, LargeFileConc){
 
-    //timer
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-
     Job config;
     config.setMappers(14);
     config.setReducers(4);
@@ -73,20 +69,11 @@ TEST(Integration, LargeFileConc){
     ifstream file = of.openFile(csv_path);
     map<string, int> results;
     results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
-    
-    //timer end
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
 }
 
 //same test but not concurrent
 TEST(Integration, LargeFileSeq){
-
-    //timer
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-
 
     CarAvgMapReduce userMapReduce;
     MapReduceEngine engine(userMapReduce);
@@ -99,19 +86,10 @@ TEST(Integration, LargeFileSeq){
     map<string, int> results;
     results = engine.Run( load.loadCSV(file));
     
-    //timer end
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
-
 }
 
-//csv file ~1.8GB
-TEST(Integration, HugeFileConc){
-
-    //timer
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
+//csv file ~90MB
+TEST(Integration, MidSizedFileConc){
 
     Job config;
     config.setMappers(14);
@@ -127,23 +105,12 @@ TEST(Integration, HugeFileConc){
     ifstream file = of.openFile(csv_path);
     map<string, int> results;
     results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
-    
-    //timer end
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
 }
 
 
 //same test but not concurrent
-TEST(Integration, HugeFileSeq){
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-
-    //timer
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-
+TEST(Integration, MidSizedFileSeq){
 
     TrafficAvgMapReduce userMapReduce;
     MapReduceEngine engine(userMapReduce);
@@ -156,11 +123,6 @@ TEST(Integration, HugeFileSeq){
     map<string, int> results;
     results = engine.Run( load.loadCSV(file));
     
-    //timer end
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
-
 }
 
 /*

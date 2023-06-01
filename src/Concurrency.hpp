@@ -51,15 +51,8 @@ std::map<std::string, int> Concurrency::runMapReduce(
     outputs mapper_outputs;
     reducerOutputs reducer_outputs;
 
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-
     //Split inputData for mappers
     std::vector<std::vector<std::string>> splitData = splitter.splitCsv(inputFiles);
-
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
     //Create mapper threads by loop
     //run mappers concurrently
