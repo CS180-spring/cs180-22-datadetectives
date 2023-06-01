@@ -11,6 +11,7 @@ int main() {
     std::vector<std::string> v;
     v.push_back("../data/data.json");
     v.push_back("../data/data.json");
+    v.push_back("../data/blank.json");
 
     // v.push_back("../jsonTestFiles/blank.json");
 
