@@ -8,7 +8,7 @@ class CSVLoader{
     public: 
     vector <string> loadCSV(ifstream &inputFile);
     vector<string> loadMulCSV(vector<string> v);
-    vector<string> splitStr(vector<string> file);
+    vector<string> splitStr(vector<string>& file);
 };
 
 vector<string> CSVLoader::loadMulCSV(vector<string> v){
@@ -37,7 +37,7 @@ vector <string> CSVLoader::loadCSV(ifstream &inputFile){
      return lines;
  }
 
-vector<string> CSVLoader::splitStr(vector<string> file){
+vector<string> CSVLoader::splitStr(vector<string>& file){
   std::vector<std::string> temp;
   std::string word = "";
   auto it = file.begin();
@@ -55,7 +55,12 @@ vector<string> CSVLoader::splitStr(vector<string> file){
 
     file.erase(it);
     file.insert(it, temp.begin(), temp.end());
-    it = std::vector<std::string>::iterator(&file[i]);
+
+    /*
+     * Error here
+     */
+    //it = std::vector<std::string>::iterator(file[i]);
+    it = file.begin() + i;
     advance(it, temp.size());
 
     temp.clear();
