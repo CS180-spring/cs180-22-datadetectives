@@ -1,0 +1,80 @@
+[
+    {
+      "location": "saratoga",
+      "date": "5-12-23",
+      "value1": 48,
+      "value2": 78
+    },
+    {
+      "location": "saratoga",
+      "date": "5-13-23",
+      "value1": 53,
+      "value2": 86
+    },
+    {
+      "location": "saratoga",
+      "date": "5-14-23",
+      "value1": 59,
+      "value2": 84
+    },
+    {
+      "location": "saratoga",
+      "date": "5-15-23",
+      "value1": 55,
+      "value2": 82
+    },
+    {
+      "location": "saratoga",
+      "date": "5-16-23",
+      "value1": 55,
+      "value2": 84
+    },
+    {
+      "location": "saratoga",
+      "date": "5-17-23",
+      "value1": 55,
+      "value2": 82
+    },
+    {
+      "location": "saratoga",
+      "date": "5-18-23",
+      "value1": 52,
+      "value2": 79
+    },
+    {
+      "location": "saratoga",
+      "date": "5-19-23",
+      "value1": 53,
+      "value2": 79
+    },
+    {
+      "location": "saratoga",
+      "date": "5-20-23",
+      "value1": 52,
+      "value2": 79
+    },
+    {
+      "location": "saratoga",
+      "date": "5-21-23",
+      "value1": 54,
+      "value2": 81
+    },
+    {
+      "location": "riverside",
+      "date": "5-12-23",
+      "value1": 52,
+      "value2": 81
+    },
+    {
+      "location": "riverside",
+      "date": "5-13-23",
+      "value1": 56,
+      "value2": 88
+    },
+    {
+      "location": "riverside",
+      "date": "5-14-23",
+      "value1": 57,
+      "value2": 88
+    }
+]

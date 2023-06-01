@@ -1,6 +1,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include "OpenFile.hpp"
 
 using namespace std;
 
@@ -14,8 +15,11 @@ class CSVLoader{
 vector<string> CSVLoader::loadMulCSV(vector<string> v){
     string s;
     vector<string> lines;
+    ifstream f;
+    OpenFile fileopen;
+    
     for(int i = 0; i < v.size(); i++){
-        ifstream f(v.at(i));
+        f = fileopen.openFile(v.at(i));
         while(getline(f, s)){
             if(s.length() != 0){
                 lines.push_back(s);
@@ -30,7 +34,7 @@ vector <string> CSVLoader::loadCSV(ifstream &inputFile){
      string s;
      vector<string>lines;
      while(getline(inputFile,s)){
-         if(s.length() != 0){
+         if(s != "\r"){
              lines.push_back(s);
          }
      }
