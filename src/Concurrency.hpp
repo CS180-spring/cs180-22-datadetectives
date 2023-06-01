@@ -11,6 +11,7 @@
 #include <map>
 #include <iostream>
 
+
 struct outputs : std::vector<std::pair<std::string, int>> {
     outputs() : std::vector<std::pair<std::string, int>>() {}
     //combines map returns
@@ -61,10 +62,15 @@ std::map<std::string, int> Concurrency::runMapReduce(
 
     //Create mapper threads by loop
     //run mappers concurrently
+
     std::vector<std::thread> mappers;
-    for(int i = 0; i < mapThreadCount; ++i){
-        mappers.push_back(std::thread(&outputs::new_member, std::ref(mapper_outputs), map_reducer_engine.Map(splitData[i])));
-    }
+    outputs mapper_outputs;
+    for (int i = 0; i < mapThreadCount; ++i) {
+    mappers.emplace_back([&mapper_outputs, &map_reducer_engine, &splitData, i]() {
+        mapper_outputs.new_member(map_reducer_engine.Map(splitData[i]));
+    });
+}
+
 
     std::cout << "DEBUG: Finished map stage." << std::endl;
 
@@ -74,7 +80,7 @@ std::map<std::string, int> Concurrency::runMapReduce(
      * and mutexes, but I am not brave enough for that. This is the quick and
      * dirty solution.
      */
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    // std::this_thread::sleep_for(std::chrono::seconds(2));
 
     //close threads
     for (auto& th : mappers) {
@@ -92,10 +98,13 @@ std::map<std::string, int> Concurrency::runMapReduce(
     //create reducer threads by loop
     //run reducers concurrently
     std::vector<std::thread> reducers;
-    for(int i = 0; i < redThreadCount; ++i){
-        reducers.push_back(std::thread(&reducerOutputs::new_member, std::ref(reducer_outputs), map_reducer_engine.Reduce(splitMaps[i])));
-    }
+    reducerOutputs reducer_outputs; 
 
+    for (int i = 0; i < redThreadCount; ++i) {
+        reducers.emplace_back([&reducer_outputs, &map_reducer_engine, &splitMaps, i]() {
+            reducer_outputs.new_member(map_reducer_engine.Reduce(splitMaps[i]));
+        });
+    }
     std::cout << "DEBUG: Finished reduce stage." << std::endl;
 
     /*
