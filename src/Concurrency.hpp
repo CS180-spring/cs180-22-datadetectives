@@ -64,7 +64,6 @@ std::map<std::string, int> Concurrency::runMapReduce(
     //run mappers concurrently
 
     std::vector<std::thread> mappers;
-    outputs mapper_outputs;
     for (int i = 0; i < mapThreadCount; ++i) {
     mappers.emplace_back([&mapper_outputs, &map_reducer_engine, &splitData, i]() {
         mapper_outputs.new_member(map_reducer_engine.Map(splitData[i]));
@@ -98,7 +97,6 @@ std::map<std::string, int> Concurrency::runMapReduce(
     //create reducer threads by loop
     //run reducers concurrently
     std::vector<std::thread> reducers;
-    reducerOutputs reducer_outputs; 
 
     for (int i = 0; i < redThreadCount; ++i) {
         reducers.emplace_back([&reducer_outputs, &map_reducer_engine, &splitMaps, i]() {
