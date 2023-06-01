@@ -9,6 +9,7 @@
 // https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json.hpp
 //#include <nlohmann/json.hpp>
 #include "../lib/json.hpp"
+#include "OpenFile.hpp"
 
 using json = nlohmann::json;
 
@@ -22,10 +23,11 @@ class JsonReader {
 std::vector<std::string> JsonReader::ReadFile(std::vector<std::string> v) {
 
   std::vector<std::string> return_val;
-
+  OpenFile fileopen;
+  
   for(int i = 0; i < v.size(); i++){
     //read through the vector for filenames
-    std::ifstream f(v.at(i));
+    std::ifstream f = fileopen.openFile(v.at(i));
     json data = json::parse(f);
 
     //traverse through one json file and hold values
