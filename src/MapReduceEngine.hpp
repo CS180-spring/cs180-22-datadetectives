@@ -1,7 +1,7 @@
 // MapReduceEngine.hpp
 
-#ifndef MAPREDUCE_SRC_MAPREDUCEENGINE_H_
-#define MAPREDUCE_SRC_MAPREDUCEENGINE_H_
+#ifndef CS180_22_DATADETECTIVES_SRC_MAPREDUCEENGINE_HPP_
+#define CS180_22_DATADETECTIVES_SRC_MAPREDUCEENGINE_HPP_
 
 #include "IMapReduce.hpp"
 #include "OutputSorter.hpp"
@@ -20,7 +20,31 @@ class MapReduceEngine {
   MapReduceEngine(IMapReduce& map_reduce) : map_reduce_(map_reduce) {}
 
   // Run function
-  std::map<std::string, int> Run(const std::vector<std::string>& input_data);
+  std::map<std::string, int> Run(const std::vector<std::string>& input_data) {
+
+    /*
+     * First, run the map stage on the input dataset.
+     */
+    std::vector<std::pair<std::string, int>> map_outputs = this->Map(input_data);
+
+    /*
+     * Next, we execute the shuffle stage using the results from the map
+     * operation.
+     */
+    std::map<std::string, std::vector<int>> shuffle_outputs = this->Shuffle(
+      map_outputs
+    );
+
+    /*
+     * Finally, we execute the reduce stage using the shuffled outputs.
+     */
+    std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
+
+    /*
+     * Return the output of the reduce operation.
+     */
+    return reduce_outputs;
+  }
 
   /*
    * Map function definition. All we do here is just run the user-defined map
@@ -78,15 +102,18 @@ class MapReduceEngine {
     return shuffled_outputs;
   }
 
-  // Reduce function.
-  // Aggregate the values for each key using a user-define reduce function.
-  std::map<std::string, int> Reduce(const std::map<std::string, std::vector<int>>& shuffle_outputs) {
-
-    auto start_time = std::chrono::high_resolution_clock::now();
+  /*
+   * Aggregate the values for each key using a user-defined reduce function.
+   */
+  std::map<std::string, int> Reduce(
+    const std::map<std::string, std::vector<int>>& shuffle_outputs
+  ) {
 
     std::map<std::string, int> reduce_outputs;
     for (const auto& pair : shuffle_outputs) {
-      reduce_outputs.emplace(pair.first, map_reduce_.Reduce(pair.first, pair.second));
+      reduce_outputs.emplace(
+        pair.first,
+        map_reduce_.Reduce(pair.first, pair.second));
     }
 
     return reduce_outputs;

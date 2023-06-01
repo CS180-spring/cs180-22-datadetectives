@@ -1,7 +1,7 @@
 // IMapReduce.hpp
 
-#ifndef MAPREDUCE_SRC_IMAPREDUCE_H_
-#define MAPREDUCE_SRC_IMAPREDUCE_H_
+#ifndef CS180_22_DATADETECTIVES_SRC_IMAPREDUCE_HPP_
+#define CS180_22_DATADETECTIVES_SRC_IMAPREDUCE_HPP_
 
 #include <vector>
 #include <string>

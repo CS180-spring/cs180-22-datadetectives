@@ -5,6 +5,7 @@
 #include "csvSplitter.hpp"
 #include "MapReduceEngine.hpp"
 
+#include <chrono>
 #include <thread>
 #include <vector>
 #include <map>
@@ -39,14 +40,24 @@ Concurrency::Concurrency(Job config){
     redThreadCount = config.getReducers();
 }
 
-std::map<std::string, int> Concurrency::runMapReduce(IMapReduce& userMapReduce, const std::vector<std::string>& inputFiles){
+std::map<std::string, int> Concurrency::runMapReduce(
+    IMapReduce& userMapReduce,
+    const std::vector<std::string>& inputFiles
+) {
+
+    std::cout << "DEBUG: Beginning of runMapReduce()." << std::endl;
+
     MapReduceEngine map_reducer_engine(userMapReduce);
     csvSplitter splitter(mapThreadCount, redThreadCount);
     outputs mapper_outputs;
     reducerOutputs reducer_outputs;
 
+    std::cout << "DEBUG: About to call splitCsv()." << std::endl;
+
     //Split inputData for mappers
     std::vector<std::vector<std::string>> splitData = splitter.splitCsv(inputFiles);
+
+    std::cout << "DEBUG: Finished splitCsv()." << std::endl;
 
     //Create mapper threads by loop
     //run mappers concurrently
@@ -55,12 +66,28 @@ std::map<std::string, int> Concurrency::runMapReduce(IMapReduce& userMapReduce, 
         mappers.push_back(std::thread(&outputs::new_member, std::ref(mapper_outputs), map_reducer_engine.Map(splitData[i])));
     }
 
+    std::cout << "DEBUG: Finished map stage." << std::endl;
+
+    /*
+     * We need to wait for the threads to finish executing before attempting to
+     * join them. There is a complicated solution involving condition variables
+     * and mutexes, but I am not brave enough for that. This is the quick and
+     * dirty solution.
+     */
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
     //close threads
-    for (auto& th : mappers) th.join();
+    for (auto& th : mappers) {
+        th.join();
+    }
+
+    std::cout << "DEBUG: Finished closing mapper threads." << std::endl;
 
     //shuffle completed maps
     //and split up for reducers
     std::vector<std::map<std::string, std::vector<int>>> splitMaps = splitter.splitMap(map_reducer_engine.Shuffle(mapper_outputs));
+
+    std::cout << "DEBUG: Finished shuffle stage." << std::endl;
 
     //create reducer threads by loop
     //run reducers concurrently
@@ -69,8 +96,17 @@ std::map<std::string, int> Concurrency::runMapReduce(IMapReduce& userMapReduce, 
         reducers.push_back(std::thread(&reducerOutputs::new_member, std::ref(reducer_outputs), map_reducer_engine.Reduce(splitMaps[i])));
     }
 
+    std::cout << "DEBUG: Finished reduce stage." << std::endl;
+
+    /*
+     * Quick and dirty hotfix for segmentation fault issues.
+     */
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
     //close threads
     for (auto& th : reducers) th.join();
+
+    std::cout << "DEBUG: Finished closing reducer threads." << std::endl;
 
     //return combined resulting map
     return reducer_outputs;

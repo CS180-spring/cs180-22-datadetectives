@@ -1,7 +1,7 @@
 // JsonReader.cpp
 
-#ifndef MAPREDUCE_SRC_JSONREADER_H_
-#define MAPREDUCE_SRC_JSONREADER_H_
+#ifndef CS180_22_DATADETECTIVES_SRC_JSONREADER_HPP_
+#define CS180_22_DATADETECTIVES_SRC_JSONREADER_HPP_
 
 #include <iostream>
 #include <fstream>
@@ -105,7 +105,12 @@ std::vector<std::string> JsonReader::splitStr(std::vector<std::string> file){
 
     file.erase(it);
     file.insert(it, temp.begin(), temp.end());
-    it = std::vector<std::string>::iterator(&file[i]);
+
+    /*
+     * Error here
+     */
+    //it = std::vector<std::string>::iterator(file[i]);
+    it = file.begin() + i;
     advance(it, temp.size());
 
     temp.clear();
