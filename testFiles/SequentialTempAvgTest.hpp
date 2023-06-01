@@ -76,7 +76,7 @@ class TempAvgMapReduceTestOverLoc : public IMapReduce {
 TEST(SequentialTempAvgTest, AvgOverDate) {
 
   // Read data from JSON
-  std::string data_path = "/Users/vinayakgajjewar/Documents/Schoolwork/CS180/cs180-22-datadetectives/data/temp_data.txt";
+  std::string data_path = "../data/temp_data.txt";
   std::ifstream in_file;
   in_file.open(data_path);
   if (!in_file) {
@@ -120,7 +120,7 @@ TEST(SequentialTempAvgTest, AvgOverDate) {
 TEST(SequentialTempAvgTest, AvgOverLoc) {
 
   // Read data from JSON
-  std::string data_path = "/Users/vinayakgajjewar/Documents/Schoolwork/CS180/cs180-22-datadetectives/data/temp_data.txt";
+  std::string data_path = "../data/temp_data.txt";
   std::ifstream in_file;
   in_file.open(data_path);
   if (!in_file) {
