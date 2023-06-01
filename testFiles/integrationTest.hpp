@@ -5,6 +5,8 @@
 #include "../src/Concurrency.hpp"
 #include "TempAvgMapReduce.cpp"
 #include "WordCountMapReduce.cpp"
+#include "CarAvgPrice.cpp"
+#include "TrafficAvg.cpp"
 
 using namespace std;
 
@@ -48,6 +50,79 @@ TEST(Integration, WordCount){
     EXPECT_EQ(results["hello"], 5);
     EXPECT_EQ(results["i"], 3);
     EXPECT_EQ(results["hi"], 1);
+}
+
+//csvfile with 2.5 million lines ~223MB
+TEST(Integration, LargeFileConc){
+
+    Job config;
+    config.setMappers(14);
+    config.setReducers(4);
+
+    CarAvgMapReduce userMapReduce;
+    Concurrency avgprice(config);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/car_sales_data.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
+
+}
+
+//same test but not concurrent
+TEST(Integration, LargeFileSeq){
+
+    CarAvgMapReduce userMapReduce;
+    MapReduceEngine engine(userMapReduce);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/car_sales_data.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = engine.Run( load.loadCSV(file));
+    
+}
+
+//csv file ~90MB
+TEST(Integration, MidSizedFileConc){
+
+    Job config;
+    config.setMappers(14);
+    config.setReducers(12);
+
+    TrafficAvgMapReduce userMapReduce;
+    Concurrency avgprice(config);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/yellow_tripdata_2016-03.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
+
+}
+
+
+//same test but not concurrent
+TEST(Integration, MidSizedFileSeq){
+
+    TrafficAvgMapReduce userMapReduce;
+    MapReduceEngine engine(userMapReduce);
+
+    OpenFile of;
+    CSVLoader load;
+    string csv_path = string(__FILE__).substr(0, string(__FILE__).find_last_of("/\\")) + "/../data/yellow_tripdata_2016-03.csv";
+
+    ifstream file = of.openFile(csv_path);
+    map<string, int> results;
+    results = engine.Run( load.loadCSV(file));
+    
 }
 
 /*
