@@ -16,6 +16,7 @@ class WriteCSV : public WriteFormat{
     void writeFile(string fileName, map<string, int>& solution) const override{
       string name = fileName + ".csv";
       ofstream outFile(name);
+
       if(!outFile){
         cout << fileName << " could not be opened.\n";
       }
@@ -32,10 +33,12 @@ class WriteJSON : public WriteFormat{
     void writeFile(string fileName, map<string, int>& solution) const override{
       string name = fileName + ".json";
       ofstream outFile(name);
+
       if(!outFile){
         cout << fileName << " could not be opened.\n";
       }
       map<string,int>::iterator it;
+
       outFile << "{\n";
       for(it = solution.begin(); it != solution.end(); it++){
             outFile << "\t{\"" << it->first << "\": \"" << it->second << "\"}";
@@ -45,6 +48,7 @@ class WriteJSON : public WriteFormat{
             outFile << endl;
       }
       outFile << "}";
+
       outFile.close();
     }
 };
@@ -54,6 +58,7 @@ class WriteTXT : public WriteFormat{
     void writeFile(string fileName, map<string, int>& solution) const override{
       string name = fileName + ".txt";
       ofstream outFile(name);
+
       if(!outFile){
         cout << fileName << " could not be opened.\n";
       }

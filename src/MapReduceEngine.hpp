@@ -40,6 +40,8 @@ class MapReduceEngine {
      */
     std::map<std::string, int> reduce_outputs = this->Reduce(shuffle_outputs);
 
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(4300));
     /*
      * Return the output of the reduce operation.
      */

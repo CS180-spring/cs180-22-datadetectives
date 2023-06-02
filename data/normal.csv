@@ -1,5 +1,3 @@
-number,name,school,type,year,ending
-1,Jackie,UCR,Student one,final
-2,Gary,UCI,Student two,start
-3,test, space, before,2
-4,,,4
+version https://git-lfs.github.com/spec/v1
+oid sha256:e4bced9b7f8393cd8d7d92a88f4976d6b713702a2895595a5234e02118c78db3
+size 129
