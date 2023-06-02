@@ -1,0 +1,11 @@
+This is a sample text file.
+
+It contains multiple lines of text that can be used for various purposes, such as testing or demonstration.
+
+You can add more lines to this file or modify the existing ones to suit your needs.
+
+Text files are commonly used for storing and transmitting textual data. They can be opened and edited using a wide range of text editors or word processors.
+
+Feel free to experiment with this sample text file and make any changes you like.
+
+End of the sample text file.

@@ -1,0 +1,7 @@
+Name, Age, Gender, Occupation
+John Doe, 30, Male, Engineer
+Jane Smith, 25, Female, Teacher
+Michael Johnson, 42, Male, Doctor
+Emily Davis, 35, Female, Lawyer
+David Wilson, 28, Male, Programmer
+Sarah Thompson, 31, Female, Accountant
