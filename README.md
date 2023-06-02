@@ -64,3 +64,18 @@ CSVLoader::loadCSV(ifstream &inputFile)
 
 Calling `runMapReduce(IMapReduce& userMapReduce, const std::vector<std::string>& inputFiles)` will return the resulting std::map of designated <string, int> pairs
 
+User can export results in different file formats.
+
+```
+    WriteCSV csvExport
+    Printer example_csv(&csvExport)
+    example_csv.output(string, map<string,int>)
+
+    WriteJSON jsonExport
+    Printer example_json(&jsonExport)
+    example_json.output(string, map<string,int>)
+
+    WriteTXT txtExport
+    Printer example_txt(&txtExport)
+    example_txt.output(string, map<string,int>)
+```
