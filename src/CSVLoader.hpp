@@ -34,7 +34,7 @@ vector <string> CSVLoader::loadCSV(ifstream &inputFile){
      string s;
      vector<string>lines;
      while(getline(inputFile,s)){
-         if(s != "\r"){
+         if(s != "\r" && s.length != 0){
              lines.push_back(s);
          }
      }
