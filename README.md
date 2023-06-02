@@ -21,10 +21,10 @@ To run our full GoogleTest test suite, execute the following commands in the
 terminal:
 
 ```
-cd build
-cmake ..
-make
-./test
+$ cd build
+$ cmake ..
+$ make
+$ ./test
 ```
 
 How to execute Word Counter test:
@@ -36,8 +36,46 @@ $ make
 $ ./wordcount
 ```
 
-Command to execute JSON reader test:
+## Developer Use
+
+### Step by step guide
+
+Override abstract class IMapReduce with user-defined map and reduce functions
 
 ```
-$ g++ test/JsonReaderTest.cpp -std=c++17 && ./a.out
+std::pair<std::string, int> Map(const std::string& record)
+
+int Reduce(const std::string& key, const std::vector<int>& values)
+```
+
+User may initialize Job object to establish configuration values:
+mapper & reducer thread count, file count, and file paths
+(or default values will be used)
+
+User initializes user-defined IMapReduce and Concurrency objects
+
+User can either use library methods to open and read file(s) or their own in order to return std::vector of strings
+
+```
+JsonReader::ReadFile(ifstream &inputFile)
+TXTloader::loadTXT(ifstream &inputFile)
+CSVLoader::loadCSV(ifstream &inputFile)
+```
+
+Calling `runMapReduce(IMapReduce& userMapReduce, const std::vector<std::string>& inputFiles)` will return the resulting std::map of designated <string, int> pairs
+
+User can export results in different file formats.
+
+```
+    WriteCSV csvExport
+    Printer example_csv(&csvExport)
+    example_csv.output(string, map<string,int>)
+
+    WriteJSON jsonExport
+    Printer example_json(&jsonExport)
+    example_json.output(string, map<string,int>)
+
+    WriteTXT txtExport
+    Printer example_txt(&txtExport)
+    example_txt.output(string, map<string,int>)
 ```
