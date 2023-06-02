@@ -7,6 +7,7 @@
 #include "WordCountMapReduce.cpp"
 #include "CarAvgPrice.cpp"
 #include "TrafficAvg.cpp"
+#include "../src/OutputJob.hpp"
 
 using namespace std;
 
@@ -69,7 +70,9 @@ TEST(Integration, LargeFileConc){
     ifstream file = of.openFile(csv_path);
     map<string, int> results;
     results = avgprice.runMapReduce(userMapReduce, load.loadCSV(file));
-
+    
+    WriteCSV writer;
+    writer.writeFile("output", results);'
 }
 
 //same test but not concurrent
